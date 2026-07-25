@@ -1,6 +1,6 @@
 {
   "name": "ai-native",
-  "description": "AIUxer (esperienza) + AIEngineer (ingegneria, costi, affidabilita): i due agenti gemelli per progettare e rivedere software AI-native. Product-agnostic, atterrano sul codice reale.",
+  "description": "AIUxer (experience) + AIEngineer (engineering, cost, reliability): the twin agents for designing and reviewing AI-native software. Product-agnostic, they land on the real code.",
   "version": "0.1.0",
   "author": {
     "name": "Francesco Mondora",

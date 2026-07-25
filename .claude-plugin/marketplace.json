@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "AI-Engineering",
   "version": "0.1.0",
-  "description": "Design system AI-native di Francesco Mondora: gli agenti gemelli AIUxer (esperienza) e AIEngineer (ingegneria/economia), fonte unica condivisa tra progetti.",
+  "description": "Francesco Mondora's AI-native design system: the twin agents AIUxer (experience) and AIEngineer (engineering/economics), a single shared source across projects.",
   "owner": {
     "name": "Francesco Mondora",
     "email": "f.mondora@teamsystem.com"
@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "ai-native",
-      "description": "AIUxer + AIEngineer: i due lenti complementari (esperienza x ingegneria) per costruire software AI-native. Product-agnostic.",
+      "description": "AIUxer + AIEngineer: the two complementary lenses (experience x engineering) for building AI-native software. Product-agnostic.",
       "source": "./plugins/ai-native",
       "category": "development"
     }
