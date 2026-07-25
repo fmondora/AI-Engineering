@@ -24,15 +24,14 @@ the agreement.
 
 ## Install
 
-The repo is both the **marketplace** and the host for the plugin. From any project:
+This repo is both the **marketplace** and the host for the plugin. From any project:
 
 ```
-/plugin marketplace add ~/wip/personal/AI-Engineering
+/plugin marketplace add fmondora/AI-Engineering
 /plugin install ai-native@AI-Engineering
 ```
 
-(Local path → you edit here, then `/plugin update ai-native@AI-Engineering` in the
-other projects. Once you push it to a git remote, `/plugin marketplace add <git-url>`.)
+Then enable auto-update (see **Updating** below) so new pushes land on their own.
 
 ## Migration (a single source, for real)
 
