@@ -52,7 +52,19 @@ From then on: **edit only here**, update with `/plugin update`.
 - `skills/` is ready for the future companions (delta/proactivity, audit,
   eval-runner) that will travel with the agents.
 
+## How the agents learn
+
+They're prompts, not models — they don't self-update. They learn through a
+**deliberate loop**: real use surfaces a lesson → you distill it → you fold it back
+into the agent, versioned. This repo's git history **is** the learning record. Each
+agent ends with a **"Field lessons"** section: stage a raw dated observation cheap,
+promote it to a principle/pattern **only when it recurs or reality proved it**. The
+ritual: at the end of real work, ask *"did this teach the agent something?"* — if
+yes, commit it with the lesson in the message.
+
 ## Versions
 
+- **0.2.0** — "Field lessons" learning convention added to both agents (staging +
+  promotion + ritual), each seeded with a real lesson from the field.
 - **0.1.0** — first packaging, in English: AIUxer (with P-L + first-person pending)
   and AIEngineer (with the delta/snapshot building block + the AI-native data layer).

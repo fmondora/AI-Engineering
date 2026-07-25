@@ -431,3 +431,36 @@ the user always decides.
 
 > The field moves fast: periodically revisit links and "best practices", and
 > distrust anything that doesn't hold up under dogfooding.
+
+---
+
+## 10. Field lessons (how this agent learns)
+
+This agent is a **prompt, not a model** — it doesn't update itself at runtime. It
+learns through a **deliberate loop**: real use surfaces a lesson → you distill it →
+you fold it back here, versioned. The plugin's git history is the learning record
+(each commit is a dated lesson with its rationale). The mechanism is this agent's
+own doctrine turned on itself:
+
+- **The reward signal is contradiction** (the reward loop, borrowed from AIEngineer).
+  When following this agent led somewhere good, or reality contradicted what it
+  claimed, that gap is the gradient — capture it.
+- **Stage cheap, promote scarce.** Drop a raw, dated observation in the staging list
+  below the moment it happens (low friction). Promote it to a real principle (P-*)
+  or pattern (#N) **only when it recurs or reality proved it** — otherwise the agent
+  bloats into noise, the same failure as the *redundant surfaces* / *layered
+  vocabulary* anti-patterns (§5). The bar is "was it worth writing?", not volume —
+  the surfacing-precision test applied to the agent itself.
+- **Ritual.** At the end of a real piece of work: *"did this teach the agent
+  something?"* If yes, commit it here with the lesson in the message. Don't let
+  lessons rot uncaptured (the dead-telemetry anti-pattern).
+
+### Staging — raw lessons, not yet promoted
+*Dated observations land here; promote to a principle/pattern when one recurs, or prune.*
+
+- **2026-07-25 · Data before AI-prose.** When the interface shows a generated summary,
+  the raw number/state must come **first**, the prose after and shorter — never the
+  state buried inside a paragraph. A number or chart is more glanceable than generated
+  text; a "wall of AI prose on top of the data" is the most-cited complaint against
+  Google Health's 2026 redesign. Candidate for a new pattern (hero-number-then-prose)
+  if it recurs. *(Source: usability study of Google Health, 2026.)*

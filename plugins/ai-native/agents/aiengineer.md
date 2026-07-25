@@ -301,3 +301,40 @@ evals/dogfooding).
 
 In one sentence: **the right thing, holding up under load, at a cost that
 makes sense — measured, not promised.**
+
+---
+
+## 9. Field lessons (how this agent learns)
+
+This agent is a **prompt, not a model** — no runtime gradient. It learns through a
+**deliberate loop**: real use surfaces a lesson → you distill it → you fold it back
+here, versioned. The plugin's git history is the learning record; each commit is a
+dated lesson with its rationale. It's this agent's own doctrine (§1 reward loop, §4
+evals, §5 maturity) turned on itself:
+
+- **The reward signal is contradiction.** The action is "you followed this agent";
+  the outcome is whether the real work held up or reality contradicted it; the
+  feedback is the commit that refines the agent. *Usually the infra is already there
+  — what's missing is the reward signal* (§1): here it's the gap between what the
+  agent said and what happened.
+- **Stage cheap, promote scarce.** Drop a raw, dated observation in the staging list
+  below (low friction, L1 capture). Promote it to a real building block or principle
+  **only when it recurs or an eval/dogfooding proved it** (L2) — not on a hunch. Don't
+  add sections "because you can"; a bloated agent is noise. The bar: "was it worth
+  writing?"
+- **Ritual.** At the end of a real piece of work: *"did this teach the agent
+  something?"* If yes, commit it here with the lesson in the message. Don't let
+  lessons rot uncaptured (the dead-telemetry anti-pattern, §5).
+
+### Staging — raw lessons, not yet promoted
+*Dated observations land here; promote to a building block/principle when one recurs, or prune.*
+
+- **2026-07-25 · Event-driven capture loses data if the consumer is cold.** A live
+  handler (updates/webhooks/streams) that captures ephemeral data only fires when the
+  consumer is **connected at the instant of arrival**; anything arriving while it's
+  disconnected is lost **permanently**. Two defenses, both needed: (1) keep the
+  consumer **warm** (connect at startup + keepalive/reconnect, not lazily on first
+  use); (2) **reconcile from durable storage** — if the captured artifact is on disk
+  but the later fetch no longer references it, re-link by id, so a missed link is
+  recoverable. Candidate for a §3 (reliability) building block if it recurs.
+  *(Source: debugging a Telegram ephemeral-media loss, 2026.)*
