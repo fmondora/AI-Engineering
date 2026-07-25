@@ -62,9 +62,18 @@ promote it to a principle/pattern **only when it recurs or reality proved it**. 
 ritual: at the end of real work, ask *"did this teach the agent something?"* — if
 yes, commit it with the lesson in the message.
 
-## Versions
+## Updating
 
-- **0.2.0** — "Field lessons" learning convention added to both agents (staging +
-  promotion + ritual), each seeded with a real lesson from the field.
-- **0.1.0** — first packaging, in English: AIUxer (with P-L + first-person pending)
-  and AIEngineer (with the delta/snapshot building block + the AI-native data layer).
+The `ai-native` plugin declares **no pinned `version`** — Claude Code tracks it by
+git commit, so **every push here becomes an update**. Enable auto-update for this
+marketplace (`/plugin` → Marketplaces → AI-Engineering → enable auto-update, or
+`FORCE_AUTOUPDATE_PLUGINS=1`) and installs refresh in the background after startup.
+Manual pull anytime: `/plugin marketplace update AI-Engineering`.
+
+## Changelog
+
+- **Field lessons** — learning convention added to both agents (staging + promotion
+  + ritual), each seeded with a real lesson from the field.
+- **English packaging** — both agents translated to English, shareable plugin.
+- **First cut** — AIUxer (with P-L + first-person pending) and AIEngineer (with the
+  delta/snapshot building block + the AI-native data layer).
