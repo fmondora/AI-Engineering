@@ -338,3 +338,16 @@ evals, §5 maturity) turned on itself:
   but the later fetch no longer references it, re-link by id, so a missed link is
   recoverable. Candidate for a §3 (reliability) building block if it recurs.
   *(Source: debugging a Telegram ephemeral-media loss, 2026.)*
+- **2026-07-26 · Unvalidated generative output is a live grounding-gate hole.** If only
+  a couple of the N component/widget types are structurally validated and the rest pass
+  through untouched, hallucinated fields reach the client **today** ("LLM output is
+  untrusted input", §1, violated in production). A unified `type → schema → validation`
+  **registry** closes it — and it's the **prerequisite for streaming**: you need a
+  per-type schema to know what to validate when a streamed unit closes. Do the registry
+  **first**; near-zero cost, fixes a real safety gap. *(Source: OpenUI-inspired design panel, 2026.)*
+- **2026-07-26 · Streaming a cached surface only pays on the miss.** Streaming lowers
+  **perceived** latency, not cost; on a signature-cached surface it helps **only on the
+  cache-MISS**. Measure the cache-hit rate *before* investing in streaming a cached
+  surface — if hits dominate, streaming solves an edge case. And stream where the payoff
+  is real (free-flowing prose "someone is writing"), not where it's ~zero (a short enum
+  list — a frontend skeleton covers that). *(Source: same panel.)*

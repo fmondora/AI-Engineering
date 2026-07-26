@@ -464,3 +464,11 @@ own doctrine turned on itself:
   text; a "wall of AI prose on top of the data" is the most-cited complaint against
   Google Health's 2026 redesign. Candidate for a new pattern (hero-number-then-prose)
   if it recurs. *(Source: usability study of Google Health, 2026.)*
+- **2026-07-26 · Extend a sibling surface before inventing.** Before adding generative
+  richness (streaming, composition) to a surface, check whether the capability already
+  exists on a **sibling surface**. A conversational turn often already streams and
+  composes *by reference*; the "new" feature is usually *extending that proven
+  machinery* to the opening/dashboard surface, not building a second, divergent one.
+  Cheaper, lower-risk, and avoids the *layered-vocabulary* / *redundant-surfaces*
+  anti-patterns (§5). Add to the audit method (§6): "does a sibling surface already do
+  this?" before proposing to build it. *(Source: OpenUI-inspired design panel, 2026.)*
