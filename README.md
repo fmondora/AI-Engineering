@@ -85,13 +85,26 @@ version and drift again:
 
 From then on: **edit only here**, update with `/plugin update`.
 
+## Skills (process, not doctrine)
+
+Agents hold **principles**. Skills hold **pipelines with hard gates**.
+
+| Skill | Role |
+|---|---|
+| **`surface-map`** | Inventory roles, surfaces, agents, catalog **spec ↔ code**, gaps; 2–3 proposals. Artifact: `docs/ai-native/surface-maps/…`. |
+| **`project-book`** | Dual-lens **Book** for the project (`docs/ai-native/book/`): AIUxer (intent/surfaces/catalog) + AIEngineer (architecture/economics/evals) + tensions + **impl-ready slices**. Hard-gate: no implementation until the Book slice is approved. |
+
+Pipeline: **surface-map → user chooses → project-book → implement from Book §09.**
+
+Planned next: `generate-surface` (scaffold from Book catalog), thinner catalog-only helpers if needed.
+
 ## Hygiene rules
 
 - The agents stay **universal**: project specifics go in the project's `CLAUDE.md`
   or its skills, **never** inside the agent (that's what makes sharing viable — cf.
-  AIUxer's P-L principle).
-- `skills/` is ready for the future companions (delta/proactivity, audit,
-  eval-runner) that will travel with the agents.
+  AIUxer's P-L principle). Put **Surface map paths** in `CLAUDE.md` so `surface-map`
+  finds specs, registry, renderer, and agents without hardcoding a product.
+- Skills travel with the plugin; product catalog contents stay in the product repo.
 
 ## How the agents learn
 
@@ -113,6 +126,14 @@ Manual pull anytime: `/plugin marketplace update AI-Engineering`.
 
 ## Changelog
 
+- **`project-book` skill** — per-project dual-lens Book before implementation;
+  wired into AIUxer/AIEngineer pipelines and surface-map handoff.
+- **Field absorb (CSDDD 2026-07-31)** — promoted into agents: LLM enum ⊆ Renderer,
+  shell ≠ catalog, surface-map-first, unified registry + composition path must
+  honor model choice; staging for collection-UI ≠ domain outcome / client timer ≠
+  durable capture.
+- **`surface-map` skill** — first process skill of the AIUxer pipeline (inventory +
+  catalog diff + proposals); agents stay doctrine, skills force the workflow.
 - **Field lessons** — learning convention added to both agents (staging + promotion
   + ritual), each seeded with a real lesson from the field.
 - **English packaging** — both agents translated to English, shareable plugin.

@@ -1,6 +1,6 @@
 {
   "name": "ai-native",
-  "description": "AIUxer (experience) + AIEngineer (engineering, cost, reliability): the twin agents for designing and reviewing AI-native software. Product-agnostic, they land on the real code.",
+  "description": "AIUxer + AIEngineer twin agents and process skills: surface-map → project-book (dual-lens design Book) → implement. Inventory and Book before code.",
   "author": {
     "name": "Francesco Mondora",
     "email": "f.mondora@teamsystem.com"
