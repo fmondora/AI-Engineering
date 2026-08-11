@@ -8,6 +8,7 @@ Claude Code **marketplace** for an **AI-native design system**: twin agents plus
 | **`aiengineer`** | AI architect — turns AIUxer intent into buildable architecture; cost, reliability, evals, current AI practice |
 | **`surface-map`** | Skill — grounded inventory of roles, surfaces, catalog **spec ↔ code**, proposals |
 | **`project-book`** | Skill — dual-lens **Book** the implementation must follow |
+| **`trend-radar`** | Skill — Reddit + X + GitHub scan → capped daily radar (no auto-promote into agents) |
 
 **Single shared source** across projects. Edit here; update elsewhere with `/plugin update`. No forked agent copies that drift.
 
@@ -71,6 +72,7 @@ surface-map  →  user chooses a direction  →  project-book  →  implement fr
 |---|---|---|
 | **`surface-map`** | No new catalog / no codegen until map + proposals and a choice (or "map only") | `docs/ai-native/surface-maps/YYYY-MM-DD-surface-map.md` |
 | **`project-book`** | No implementation until the Book slice is **approved** | `docs/ai-native/book/` (`00-INDEX` … `09-IMPL-READY`) |
+| **`trend-radar`** | Never auto-edit agent doctrine; ≤5 UX + ≤5 Eng signals/day | `plugins/ai-native/radar/YYYY-MM-DD.md` |
 
 **Book ownership (short):**
 
@@ -79,6 +81,8 @@ surface-map  →  user chooses a direction  →  project-book  →  implement fr
 | 01 Intent, 02 Surfaces, 03 Catalog | AIUxer |
 | 05 Architecture, 06 Economics, 07 Reliability & evals | AIEngineer |
 | 04 Agents-runtime, 08 Tensions, 09 Impl-ready | Both |
+
+**How agents learn:** dogfood (field lessons) + literature + **`trend-radar`** (Reddit / X / GitHub) → stage → scarce promote → commit. Radar is candidates only.
 
 Planned next: `generate-surface` (scaffold from Book catalog).
 
@@ -101,6 +105,7 @@ Then enable auto-update (see **Updating**).
 |---|---|
 | Map the generative surface | `/surface-map` or ask AIUxer to run the surface map |
 | Design before code | After a direction: `/project-book` or "write the project book" |
+| Daily / on-demand trend scan | `/trend-radar` (Reddit + X + GitHub → `radar/`) |
 | Experience review / pattern | Invoke **`aiuxer`** |
 | Architecture / cost / evals | Invoke **`aiengineer`** |
 | Full slice | Map → choose → Book (both lenses) → approve → implement §09 |
@@ -162,6 +167,7 @@ The `ai-native` plugin has **no pinned `version`** — Claude Code tracks by git
 
 ## Changelog
 
+- **`trend-radar` skill** — dual-lens scan (Reddit + X + GitHub) into capped `radar/YYYY-MM-DD.md`; stage/promote still human-gated.
 - **Field absorb (CSDDD + tantracp 2026-08-11)** — AIUxer **#25–#28** (autonomy ladder, impact preview, dual memory, evidence surface); AIEngineer dual-gate L4, unattended draft vs act, client timer ≠ durable capture; pattern crosswalk (Shape of AI / AI UX Playground).
 - **`project-book` skill** — per-project dual-lens Book before implementation; wired into both agents and surface-map handoff.
 - **Field absorb (CSDDD 2026-07-31)** — promoted: LLM enum ⊆ Renderer, shell ≠ catalog, surface-map-first, unified registry + composition path must honor model choice.

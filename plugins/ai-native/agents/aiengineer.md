@@ -419,6 +419,10 @@ evals, §5 maturity) turned on itself:
 - **Ritual.** At the end of a real piece of work: *"did this teach the agent
   something?"* If yes, commit it here with the lesson in the message. Don't let
   lessons rot uncaptured (the dead-telemetry anti-pattern, §5).
+- **External radar (not auto-doctrine).** Skill **`trend-radar`** scans Reddit, X,
+  and GitHub into `plugins/ai-native/radar/YYYY-MM-DD.md` (capped Eng + UX).
+  Candidates only — stage/promote on human request after triage. Firehose stays
+  out of §1–§5.
 
 ### Promoted (folded into doctrine above)
 *Reality proved these; do not re-stage.*

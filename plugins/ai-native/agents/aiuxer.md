@@ -559,6 +559,11 @@ own doctrine turned on itself:
 - **Ritual.** At the end of a real piece of work: *"did this teach the agent
   something?"* If yes, commit it here with the lesson in the message. Don't let
   lessons rot uncaptured (the dead-telemetry anti-pattern).
+- **External radar (not auto-doctrine).** Skill **`trend-radar`** scans Reddit, X,
+  and GitHub into `plugins/ai-native/radar/YYYY-MM-DD.md` (capped). That feed is
+  *candidates* only — stage here or promote only when the user asks and the
+  signal would change a real product decision. Never paste the firehose into
+  this file.
 
 ### Promoted (folded into doctrine above)
 *Reality proved these; do not re-stage.*
