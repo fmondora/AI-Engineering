@@ -1,141 +1,175 @@
 # AI-Engineering
 
-A Claude Code marketplace holding Francesco Mondora's **AI-native design system**:
-the twin agents **AIUxer** (experience) and **AIEngineer** (engineering, economics,
-reliability). A **single, shared source** across projects — no more copies that
-drift apart.
+Claude Code **marketplace** for an **AI-native design system**: twin agents plus process skills that force inventory and design before code.
+
+| Piece | What it is |
+|---|---|
+| **`aiuxer`** | Experience lens — generative surfaces, closed catalog, grounding, audits |
+| **`aiengineer`** | Engineering lens — cost-per-outcome, reliability, evals, architecture |
+| **`surface-map`** | Skill — grounded inventory of roles, surfaces, catalog **spec ↔ code**, proposals |
+| **`project-book`** | Skill — dual-lens **Book** the implementation must follow |
+
+**Single shared source** across projects. Edit here; update elsewhere with `/plugin update`. No forked agent copies that drift.
+
+---
+
+## Why this exists
+
+AI-native products fail in ways normal design reviews miss: unvalidated generative types, shells mixed into catalogs, rich chat with no durable design contract, cost that balloons without an outcome metric.
+
+Agents alone become **consultant lectures**. Skills hold **pipelines with hard gates**. Doctrine stays universal; product specifics live in each project's Book and `CLAUDE.md`.
+
+---
 
 ## The two agents
 
-One plugin, `ai-native`, ships two complementary specialists. They're deliberately
-in tension — and that tension is the point.
+One plugin, `ai-native`. Two specialists on purpose — the tension is the point.
 
-### `aiuxer` — the experience lens
+### `aiuxer` — experience
 
-AI-native isn't "bolt a chatbot onto a screen." It's an interface an **AI composes
-and organizes at runtime**: generative-widget homes, conversational surfaces,
-dashboards that learn, ranking and memory that adapt. That power brings failure modes
-a normal design review never sees — an interface that "dances" (re-orders itself with
-no explanation), the **double mental model** collapsing (the user can't tell a fact
-from something generated), ungrounded generation reaching the user as if it were true.
+AI-native is not "a chatbot on a screen." It is an interface an **AI composes at runtime**: generative widgets, conversational surfaces, adaptive ranking and memory. That power needs patterns, anti-patterns, and audits.
 
-`aiuxer` exists to design that well and to audit it. It brings a **pattern catalog**
-(composition by reference, search-on-demand, visibly-marked generated content…),
-**principles rooted in the literature** (the grounding gate — the AI proposes, code
-verifies; presentation belongs to an agent only when it *is* the reasoning), an
-**AI-native maturity model** on the experience axis (L0–L4), an **audit methodology**
-for when someone says "it's confusing," and the named **anti-patterns** (layered
-vocabulary, redundant surfaces, proactive spam). Reach for it when: *"the system feels
-confusing," "make this UI truly AI-native," "validate/add a generative widget,"
-"usability-audit an AI product," "give the interface memory/learning."* Its
-non-negotiable: **grounding** — generated content is marked, the trust boundary holds.
+**Brings:** pattern catalog, literature-backed principles (grounding gate, presentation only when it *is* the reasoning), maturity model L0–L4 (experience), audit method for "it's confusing," named anti-patterns (layered vocabulary, redundant surfaces, proactive spam).
 
-### `aiengineer` — the engineering lens
+**Use when:** the system feels confusing · make a UI truly AI-native · validate or add a generative widget · usability-audit an AI product · give the interface memory/learning.
 
-The engineering twin. Its stance: the **LLM is an expensive guest, not the plumbing**
-— every model call is latency + money + a point of fragility, so you put it only where
-something must be *reasoned* or *created*, and everything else stays deterministic.
-**Evals are the spec** (in a probabilistic system "it works" is a distribution, not a
-boolean). **Cost is a design choice**, not an ops afterthought — measured in
-*cost-per-outcome*, not cost-per-call.
+**Non-negotiable:** **grounding** — generated content is marked; the trust boundary holds.
 
-It brings reusable **building blocks** (backend abstraction, a persistent job queue,
-context engineering, structured-output validation, router-vs-agent, the three axes of
-memory — *state / outcome / delta* — and the AI-native data layer), an **economics
-playbook** (model tiering, multi-layer caching, local models, anti-runaway guardrails),
-**reliability** patterns (graceful degradation, idempotency, the trust boundary),
-**evals & observability**, and a BUILD-side **maturity model** where every rung is paid
-for with evals + budget. Reach for it when: *"what architecture for this AI system?,"
-"how do I manage cost/latency?," "which model, when do I escalate?," "how do I add
-memory/learning sustainably?," "how do I do evals?," "my agent loops / is fragile /
-costs too much."* Its non-negotiable: **cost-per-outcome** and the **trust boundary**.
+### `aiengineer` — engineering
+
+The LLM is an **expensive guest, not the plumbing**. Every call is latency, money, and fragility. Put the model only where something must be *reasoned* or *created*; everything else stays deterministic. **Evals are the spec.** **Cost is a design choice**, measured as *cost-per-outcome*.
+
+**Brings:** building blocks (backend abstraction, job queue, context engineering, structured-output validation, router-vs-agent, memory axes, AI-native data layer), economics playbook, reliability patterns, evals & observability, BUILD maturity model paid with evals + budget.
+
+**Use when:** architecture for this AI system · cost/latency · which model / when to escalate · sustainable memory · evals · agent loops, fragility, runaway cost.
+
+**Non-negotiable:** **cost-per-outcome** and the **trust boundary**.
 
 ### Why two, not one
 
-They pull in different directions on purpose. `aiuxer` maximizes the *intelligence of
-the experience* — anticipation, memory everywhere, "propose the move," generative
-richness; it pushes toward L4. `aiengineer` weighs *cost, latency, reliability,
-maintainability* — how much that magic costs, how fragile it is, how long it holds. The
-common ground is real (deterministic-first, the inviolable trust boundary, a shared
-maturity model), and the arbiter is never who argues best: it's the **measured
-outcome**. **AIUxer designs the desirable, AIEngineer makes it feasible and
-sustainable; the outcome metric signs the agreement.**
+`aiuxer` maximizes *intelligence of the experience* (anticipation, generative richness, L4). `aiengineer` weighs *cost, latency, reliability, maintainability*. Shared ground: deterministic-first, inviolable trust boundary, shared maturity thinking. Arbiter is never who argues best — it is the **measured outcome**.
 
-> The agents author in English but **speak the interlocutor's language** — they
-> answer you in whatever language you write.
+> **AIUxer designs the desirable; AIEngineer makes it feasible and sustainable; the outcome metric signs the agreement.**
+
+Agents are authored in English and **answer in the interlocutor's language**.
+
+---
+
+## Pipeline (how you actually work)
+
+```text
+surface-map  →  user chooses a direction  →  project-book  →  implement from Book §09
+     │                    │                      │                      │
+  inventory            pick A/B/C           dual-lens Book          code / plans
+  + gaps +             (or map-only)        user-approved           only after approval
+  2–3 proposals
+```
+
+| Skill | Hard-gate | Artifact |
+|---|---|---|
+| **`surface-map`** | No new catalog / no codegen until map + proposals and a choice (or "map only") | `docs/ai-native/surface-maps/YYYY-MM-DD-surface-map.md` |
+| **`project-book`** | No implementation until the Book slice is **approved** | `docs/ai-native/book/` (`00-INDEX` … `09-IMPL-READY`) |
+
+**Book ownership (short):**
+
+| Chapters | Lead |
+|---|---|
+| 01 Intent, 02 Surfaces, 03 Catalog | AIUxer |
+| 05 Architecture, 06 Economics, 07 Reliability & evals | AIEngineer |
+| 04 Agents-runtime, 08 Tensions, 09 Impl-ready | Both |
+
+Planned next: `generate-surface` (scaffold from Book catalog).
+
+---
 
 ## Install
 
-This repo is both the **marketplace** and the host for the plugin. From any project:
+From any project (Claude Code):
 
-```
+```text
 /plugin marketplace add fmondora/AI-Engineering
 /plugin install ai-native@AI-Engineering
 ```
 
-Then enable auto-update (see **Updating** below) so new pushes land on their own.
+Then enable auto-update (see **Updating**).
 
-## Migration (a single source, for real)
+### Invoke
 
-After installing, **remove the local copies** so they don't mask the plugin's
-version and drift again:
-
-- `.claude/agents/aiuxer.md`, `.claude/agents/aiengineer.md` (gitignored runtime)
-- any tracked copies `docs/agents/aiuxer.md`, `docs/agents/aiengineer.md`
-
-From then on: **edit only here**, update with `/plugin update`.
-
-## Skills (process, not doctrine)
-
-Agents hold **principles**. Skills hold **pipelines with hard gates**.
-
-| Skill | Role |
+| Intent | What to say / use |
 |---|---|
-| **`surface-map`** | Inventory roles, surfaces, agents, catalog **spec ↔ code**, gaps; 2–3 proposals. Artifact: `docs/ai-native/surface-maps/…`. |
-| **`project-book`** | Dual-lens **Book** for the project (`docs/ai-native/book/`): AIUxer (intent/surfaces/catalog) + AIEngineer (architecture/economics/evals) + tensions + **impl-ready slices**. Hard-gate: no implementation until the Book slice is approved. |
+| Map the generative surface | `/surface-map` or ask AIUxer to run the surface map |
+| Design before code | After a direction: `/project-book` or "write the project book" |
+| Experience review / pattern | Invoke **`aiuxer`** |
+| Architecture / cost / evals | Invoke **`aiengineer`** |
+| Full slice | Map → choose → Book (both lenses) → approve → implement §09 |
 
-Pipeline: **surface-map → user chooses → project-book → implement from Book §09.**
+### Project setup (once per product repo)
 
-Planned next: `generate-surface` (scaffold from Book catalog), thinner catalog-only helpers if needed.
+In the product's `CLAUDE.md` (or `AGENTS.md`), add a **Surface map paths** section so skills find specs, registry, renderer, and agents without hardcoding a product. Example shape:
 
-## Hygiene rules
+```markdown
+## Surface map paths
+- Specs: specs/
+- Catalog / types: frontend/src/widgets/tipi.ts
+- Renderer: frontend/src/widgets/Renderer.tsx
+- Runtime agents: src/agents/
+- Shell: frontend/src/shell/
+- Design root / impl root: … (if split repos)
+```
 
-- The agents stay **universal**: project specifics go in the project's `CLAUDE.md`
-  or its skills, **never** inside the agent (that's what makes sharing viable — cf.
-  AIUxer's P-L principle). Put **Surface map paths** in `CLAUDE.md` so `surface-map`
-  finds specs, registry, renderer, and agents without hardcoding a product.
-- Skills travel with the plugin; product catalog contents stay in the product repo.
+Product catalog **contents** stay in the product repo. Agents stay universal.
+
+---
+
+## Migration (one source, for real)
+
+After install, **remove local copies** so they do not mask the plugin:
+
+- `.claude/agents/aiuxer.md`, `.claude/agents/aiengineer.md` (runtime copies)
+- tracked `docs/agents/aiuxer.md`, `docs/agents/aiengineer.md` if any
+
+From then on: **edit only in this repo**, pull updates with `/plugin update` / marketplace update.
+
+---
+
+## Hygiene
+
+- **Agents = principles.** Project specifics → Book + `CLAUDE.md`, never agent files.
+- **Skills = process with gates.** Travel with the plugin.
+- **Brownfield:** Book links existing product specs and writes *deltas*; it does not silently fork a second source of truth.
+- **After ship:** if reality contradicts a chapter, amend the Book (new edition), then code; promote universal lessons into agents via **Field lessons**.
+
+---
 
 ## How the agents learn
 
-They're prompts, not models — they don't self-update. They learn through a
-**deliberate loop**: real use surfaces a lesson → you distill it → you fold it back
-into the agent, versioned. This repo's git history **is** the learning record. Each
-agent ends with a **"Field lessons"** section: stage a raw dated observation cheap,
-promote it to a principle/pattern **only when it recurs or reality proved it**. The
-ritual: at the end of real work, ask *"did this teach the agent something?"* — if
-yes, commit it with the lesson in the message.
+They are prompts, not models — they do not self-update. Loop: real use → distill a lesson → fold into the agent, versioned. Git history **is** the learning record.
+
+Each agent ends with **Field lessons**: stage a dated raw observation cheap; promote to principle/pattern only when it recurs or reality proved it. Ritual after real work: *"Did this teach the agent something?"* — if yes, commit it with the lesson in the message.
+
+---
 
 ## Updating
 
-The `ai-native` plugin declares **no pinned `version`** — Claude Code tracks it by
-git commit, so **every push here becomes an update**. Enable auto-update for this
-marketplace (`/plugin` → Marketplaces → AI-Engineering → enable auto-update, or
-`FORCE_AUTOUPDATE_PLUGINS=1`) and installs refresh in the background after startup.
-Manual pull anytime: `/plugin marketplace update AI-Engineering`.
+The `ai-native` plugin has **no pinned `version`** — Claude Code tracks by git commit, so **every push here is an update**.
+
+- Auto: `/plugin` → Marketplaces → AI-Engineering → enable auto-update (or `FORCE_AUTOUPDATE_PLUGINS=1`)
+- Manual: `/plugin marketplace update AI-Engineering`
+
+---
 
 ## Changelog
 
-- **`project-book` skill** — per-project dual-lens Book before implementation;
-  wired into AIUxer/AIEngineer pipelines and surface-map handoff.
-- **Field absorb (CSDDD 2026-07-31)** — promoted into agents: LLM enum ⊆ Renderer,
-  shell ≠ catalog, surface-map-first, unified registry + composition path must
-  honor model choice; staging for collection-UI ≠ domain outcome / client timer ≠
-  durable capture.
-- **`surface-map` skill** — first process skill of the AIUxer pipeline (inventory +
-  catalog diff + proposals); agents stay doctrine, skills force the workflow.
-- **Field lessons** — learning convention added to both agents (staging + promotion
-  + ritual), each seeded with a real lesson from the field.
-- **English packaging** — both agents translated to English, shareable plugin.
-- **First cut** — AIUxer (with P-L + first-person pending) and AIEngineer (with the
-  delta/snapshot building block + the AI-native data layer).
+- **Field absorb (CSDDD + tantracp 2026-08-11)** — AIUxer **#25–#28** (autonomy ladder, impact preview, dual memory, evidence surface); AIEngineer dual-gate L4, unattended draft vs act, client timer ≠ durable capture; pattern crosswalk (Shape of AI / AI UX Playground).
+- **`project-book` skill** — per-project dual-lens Book before implementation; wired into both agents and surface-map handoff.
+- **Field absorb (CSDDD 2026-07-31)** — promoted: LLM enum ⊆ Renderer, shell ≠ catalog, surface-map-first, unified registry + composition path must honor model choice.
+- **`surface-map` skill** — first process skill (inventory + catalog diff + proposals); agents hold doctrine, skills force the workflow.
+- **Field lessons** — staging + promotion + ritual on both agents.
+- **English packaging** — agents and plugin shareable in English.
+- **First cut** — AIUxer + AIEngineer doctrine.
+
+---
+
+## License / contact
+
+Maintained by Francesco Mondora. Issues and field lessons welcome via PRs on this repo.

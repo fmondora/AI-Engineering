@@ -92,6 +92,24 @@ How you *enter* a problem matters more than any pattern.
   reaches the user — cost without outcome. The mapping layer
   (`mossaABlocchi` / equivalent) is part of the contract, not a FE detail.
   *(Promoted 2026-07-31, CSDDD.)*
+- **Unattended draft vs unattended act (autonomy ops).** Background jobs may
+  **prepare** (generate drafts, refresh embeddings, rank, propose) at L2 without
+  a human in the loop — that is often good cost-per-outcome. They must **not**
+  **execute** real-world side effects (send message, ratify ranking, publish,
+  charge) unless explicitly L4-bounded. Default workers leave act-flags **off**.
+  Pair with AIUxer **#25**. *(Promoted 2026-08-11; tantracp tick + CSDDD ratifica.)*
+- **Dual-gate L4 for unattended acts.** If you ever enable automatic execution,
+  require **two independent flags** (e.g. `auto_send ∧ confirm`), both true, both
+  logged; either alone is a no-op that reports `would_act` / `draft_ready`. A
+  single boolean "auto" will eventually default true in a worker and ship silent
+  writes. Hard budgets (count, time, channel allowlist) + interrupt path still
+  apply. *(Promoted 2026-08-11; Shakti `tick.py`.)*
+- **Client timer ≠ durable capture.** A UI that flips "pending → accepted" after
+  `setTimeout` is honest *perceived* latency, not persistence, not multi-device
+  truth, not audit lineage. Promote capture to a **job/queue + durable store**
+  (or confirmed API); keep the timer only until the server ACK. Same class of
+  bug as "sent" without ledger outcome. *(Promoted 2026-08-11 from staging;
+  CSDDD `inviaDato`; generalizes with tantracp send≠outcome.)*
 - **Tool-use vs. router.** Often you don't need an agent that decides
   everything: you need a **router** that recognizes intent and routes to
   pre-built (deterministic) code. Reserve tool-use/agentic behavior for cases
@@ -340,6 +358,12 @@ You co-author the **Project Book** (`docs/ai-native/book/`, skill `project-book`
 8. **Separate UI acceptance from domain computation.** Client "dato inviato /
    accettato" is elicitation state; audit-grade scores, ratings, and writes stay
    deterministic domain + confirmed endpoints. Don't ship one as if it were the other.
+9. **Classify every background job:** *prepare* (L2 draft/rank/embed — OK unattended)
+   vs *act* (send/ratify/write — default off; L4 only behind **dual gate** + budgets).
+   Document the flags and defaults in Book **05/07**.
+10. **No durable claim without durable store.** If the UX says accepted/saved/sent
+    and only a client timer or in-memory map backs it, call it out as P0 for audit
+    or multi-device products — fix path is job + ACK, not a longer timeout.
 
 In one sentence: **the right thing, holding up under load, at a cost that
 makes sense — measured, not promised — and written into the Project Book
@@ -379,6 +403,9 @@ evals, §5 maturity) turned on itself:
 | 2026-07-31 | Composition path must honor model choice (`widget`) | §1 composition path |
 | 2026-07-31 | UI acceptance ≠ domain computation | §8 checklist |
 | 2026-07-31 | Project Book before implementation (dual-lens) | §8 pipeline, skill `project-book` |
+| 2026-08-11 | Unattended draft OK; unattended act default off | §1 autonomy ops + §8 #9 |
+| 2026-08-11 | Dual-gate L4 for automatic execution | §1 dual-gate + §8 #9 (Shakti) |
+| 2026-08-11 | Client timer ≠ durable capture | §1 + §8 #10 (from staging) |
 
 ### Staging — raw lessons, not yet promoted
 *Dated observations land here; promote to a building block/principle when one recurs, or prune.*
@@ -398,9 +425,3 @@ evals, §5 maturity) turned on itself:
   surface — if hits dominate, streaming solves an edge case. And stream where the payoff
   is real (free-flowing prose "someone is writing"), not where it's ~zero (a short enum
   list — a frontend skeleton covers that). *(Source: OpenUI-inspired design panel, 2026.)*
-- **2026-07-31 · Client timer ≠ durable capture.** `inviaDato` / `caricaEvidenza` that
-  flip local state after a fixed timeout are honest *UX* pending, not persistence or
-  server-side verification. For audit lineage and multi-device, promote to a job/queue
-  + durable store; keep the client timer only as perceived latency until the server
-  confirms. Promote when a second product needs durable capture.
-  *(Source: CSDDD data-collection wiring, 2026-07-31.)*

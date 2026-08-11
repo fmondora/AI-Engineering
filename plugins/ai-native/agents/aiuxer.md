@@ -275,6 +275,34 @@ Use this scale to place a system and point to the next rung.
     and implementation-ready slices. Implementation starts from the Book, not from
     chat. Skill: `project-book`. Product-specific content lives in the Book; this
     agent stays universal.
+25. **Autonomy ladder (L1–L5) — default L3 on domain writes** — name the authority
+    per *action*, not per product slogan. **L1 Suggest** (ignoreable options) ·
+    **L2 Draft** (artifact/UI ready; side effects blocked until user finishes) ·
+    **L3 Confirm** (agent ready to act; human approves exact scope) · **L4 Bounded**
+    (unattended inside hard limits + interrupt + escalate) · **L5 Monitor** (always-on;
+    people govern policy). **Default ceiling for ranking/verdict/real-world writes
+    (send, ratify, publish): L3.** Unattended **draft generation** can be L2;
+    unattended **send/act** is L4 only behind **dual gates** (e.g. `auto_send ∧
+    confirm`, both required; default worker leaves confirm off). Conversational
+    composition and chips stay L1–L2. *(Dogfood CSDDD + tantracp/Shakti 2026-08-11;
+    Playground Agentic UX.)*
+26. **Impact preview before L3 confirm** — before promoting a proposal to a durable
+    verdict, force a **domain-shaped** preview: open lineage / evidence path, show
+    class + provenance + high-risk flags, require structured reason on rework/override.
+    This is not commerce “blast radius of N files” chrome — it is *forced evidence
+    review*. Sandbox dry-run of external writes when integrations can change systems
+    of record. *(Dogfood CSDDD ratifica gate + `isAltoRischio`.)*
+27. **Dual memory: session thread ≠ durable product memory** — conversational
+    continuity (client-owned storico / session) is **not** the supplier dossier or
+    event store. Both must be **inspectable**. Never let the model’s hidden context
+    be the only place facts live. Prefer domain rails/dossier over ChatGPT-style
+    “memory” chrome unless the product is a general assistant. *(Dogfood CSDDD:
+    UI-owned storico + dossier/rail as SoT.)*
+28. **Evidence surface = gate + human panels** — **P-I** validates facts in code
+    first; then expose **provenance badges, lineage, evidence traces** wherever
+    score/class is shown. Decorative citation chips in free prose are optional;
+    silent drop of ungrounded claims without user/auditor signal is not.
+    *(Dogfood CSDDD: `grounding.ts` + lineage-panel + gap-evidence-trace.)*
 
 ---
 
@@ -305,6 +333,16 @@ exist, you **add a token**, not a hardcode. Token rigidity also serves
   #21): shrink the enum or implement the type — never leave the mismatch.
 - **Shell types in the generative enum** (rail, banners, switchers as if they were
   turn widgets) → model "composes chrome"; keep shell out of the selectable set (#21).
+- **L4/L5 writes without budgets + interrupt + audit** → raise autonomy only with
+  hard limits (#25); default domain writes stay L3.
+- **Confirm without evidence path** → L3 button that skips lineage/trace/impact
+  preview (#26) is friction theater, not trust.
+- **Chat history as sole memory of domain facts** → dual-memory collapse (#27).
+- **Scores without provenance / silent ungrounded cites** → evidence surface hole (#28).
+- **Elicitation or send success presented as domain outcome** — "dato accettato" ≠
+  rating calcolato; "messaggio inviato" ≠ relazione ok / reply won. Close the
+  elicitation job honestly; measure outcomes in ledger/evals separately.
+  *(CSDDD + tantracp 2026-08-11.)*
 - Masking errors (a proxy that fakes 200) → degrade with honesty (#P-D).
 - Lists that are "pretty but slow" because they go through the AI → instant (#4).
 - Synchronous download that blocks the view → cache-first + lazy + on-demand (#15).
@@ -532,6 +570,13 @@ own doctrine turned on itself:
 | 2026-07-31 | Shell ≠ generative catalog | Pattern **#21**, anti-pattern §5 |
 | 2026-07-31 | Surface-map before catalog invention | Pattern **#22**, §8 pipeline |
 | 2026-07-31 | Project Book before implementation | Pattern **#24**, §8 pipeline, skill `project-book` |
+| 2026-08-11 | Autonomy ladder L1–L5; default L3 domain writes | Pattern **#25** (CSDDD dogfood) |
+| 2026-08-11 | Impact preview = forced evidence review before L3 | Pattern **#26** (CSDDD ratifica) |
+| 2026-08-11 | Session thread ≠ durable dossier memory | Pattern **#27** (CSDDD coach) |
+| 2026-08-11 | Evidence = grounding gate + lineage/trace/provenance | Pattern **#28** (CSDDD) |
+| 2026-08-11 | #25–#28 confirmed on second product (tantracp/Shakti) | Patterns **#25–#28** |
+| 2026-08-11 | L4 send needs dual gate (`auto_send ∧ confirm`) | Pattern **#25** (Shakti tick) |
+| 2026-08-11 | Elicitation/send success ≠ domain outcome | Anti-pattern + note under P-D / #28 |
 
 ### Staging — raw lessons, not yet promoted
 *Dated observations land here; promote to a principle/pattern when one recurs, or prune.*
@@ -542,16 +587,10 @@ own doctrine turned on itself:
   text; a "wall of AI prose on top of the data" is the most-cited complaint against
   Google Health's 2026 redesign. Candidate for a new pattern (hero-number-then-prose)
   if it recurs. *(Source: usability study of Google Health, 2026.)*
-- **2026-07-31 · Collection UI ≠ domain outcome.** Wiring `data-collection` + client
-  `inviaDato` (honest pending → accepted) closes the *elicitation* job; it does **not**
-  create an audit-grade rating/internal score. Don't present "dato accettato" as if the
-  system had completed the downstream deterministic computation (e.g. internal rating
-  formula). Keep UX state and domain outcome visually and verbally distinct (trust +
-  double mental model). Promote when a second product hits the same trap.
-  *(Source: CSDDD coach channel A, 2026-07-31.)*
 - **2026-07-31 · Doctrine without process feels "poor".** A rich principle catalog with
   no hard-gated skill pipeline (inventory → proposals → approve → spec → generate)
   produces consultant lectures. Superpowers-style skills are the delivery vehicle;
-  agents hold taste, skills force the work. Already partly fixed via `surface-map`;
-  keep staging until catalog-design / generate-surface exist and the loop is dogfooded
-  end-to-end on a second product. *(Source: AIUxer usage review on CSDDD, 2026-07-31.)*
+  agents hold taste, skills force the work. Already partly fixed via `surface-map` +
+  `project-book`; keep staging until `generate-surface` exists and the full loop is
+  dogfooded end-to-end on a third product. *(Source: AIUxer usage review on CSDDD;
+  tantracp already has rich local `docs/uxai` process.)*
