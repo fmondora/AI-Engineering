@@ -5,7 +5,7 @@ Claude Code **marketplace** for an **AI-native design system**: twin agents plus
 | Piece | What it is |
 |---|---|
 | **`aiuxer`** | Experience lens — generative surfaces, closed catalog, grounding, audits |
-| **`aiengineer`** | Engineering lens — cost-per-outcome, reliability, evals, architecture |
+| **`aiengineer`** | AI architect — turns AIUxer intent into buildable architecture; cost, reliability, evals, current AI practice |
 | **`surface-map`** | Skill — grounded inventory of roles, surfaces, catalog **spec ↔ code**, proposals |
 | **`project-book`** | Skill — dual-lens **Book** the implementation must follow |
 
@@ -35,21 +35,23 @@ AI-native is not "a chatbot on a screen." It is an interface an **AI composes at
 
 **Non-negotiable:** **grounding** — generated content is marked; the trust boundary holds.
 
-### `aiengineer` — engineering
+### `aiengineer` — AI architect (build path)
 
-The LLM is an **expensive guest, not the plumbing**. Every call is latency, money, and fragility. Put the model only where something must be *reasoned* or *created*; everything else stays deterministic. **Evals are the spec.** **Cost is a design choice**, measured as *cost-per-outcome*.
+The twin is not only a cost critic. It is the **architect who knows how to implement** what AIUxer wants: workflows vs agents, registries, queues, context, memory, dual-gate autonomy, evals — using **current AI-engineering practice**, not fashion for its own sake.
 
-**Brings:** building blocks (backend abstraction, job queue, context engineering, structured-output validation, router-vs-agent, memory axes, AI-native data layer), economics playbook, reliability patterns, evals & observability, BUILD maturity model paid with evals + budget.
+The LLM is an **expensive guest, not the plumbing**. **Evals are the spec.** **Cost is a design choice**, measured as *cost-per-outcome*. If the full UX dream is too expensive, Eng ships a **phased architecture** that still hits the outcome — not a bare veto.
 
-**Use when:** architecture for this AI system · cost/latency · which model / when to escalate · sustainable memory · evals · agent loops, fragility, runaway cost.
+**Brings:** building blocks (backend abstraction, job queue, context engineering, structured-output validation, router-vs-agent, shared-shortlist fan-out, memory axes, AI-native data layer), economics playbook, reliability, evals & observability, BUILD maturity model.
+
+**Use when:** "how do we build what UX asked?" · architecture for this AI feature · cost/latency · model tiering · memory · evals · fragile/looping agents.
 
 **Non-negotiable:** **cost-per-outcome** and the **trust boundary**.
 
 ### Why two, not one
 
-`aiuxer` maximizes *intelligence of the experience* (anticipation, generative richness, L4). `aiengineer` weighs *cost, latency, reliability, maintainability*. Shared ground: deterministic-first, inviolable trust boundary, shared maturity thinking. Arbiter is never who argues best — it is the **measured outcome**.
+`aiuxer` maximizes *intelligence of the experience* (anticipation, generative richness, L4). `aiengineer` turns that into *architecture that holds* under cost, latency, reliability. Shared ground: deterministic-first, inviolable trust boundary, shared maturity. Arbiter = **measured outcome**.
 
-> **AIUxer designs the desirable; AIEngineer makes it feasible and sustainable; the outcome metric signs the agreement.**
+> **AIUxer designs the desirable; AIEngineer is the AI architect who makes it implementable and sustainable; the outcome metric signs the agreement.**
 
 Agents are authored in English and **answer in the interlocutor's language**.
 
