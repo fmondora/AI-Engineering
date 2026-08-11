@@ -243,16 +243,17 @@ references/ai-ux-pattern-crosswalk.md  → this file (external map + absorb)
 
 ### Tier B — dogfood → **promoted into AIUxer #25–#28**
 
-| # | Name | CSDDD | tantracp / Shakti | Notes |
-|---|---|---|---|---|
-| 25 | Autonomy L1–L5; default L3 writes | **present** L1–L3 | **present** L1–L3 + dual-gated L4 | Shakti: `auto_send ∧ confirm`; worker `confirm=False` |
-| 26 | Impact preview before L3 | **partial→strong** | **present** (msg-shaped) | CSDDD: lineage+trace; Shakti: text+channel+policy+conf |
-| 27 | Dual memory session ≠ durable | **partial** | **present (strong)** | Shakti: SQLite + KB + local embeddings |
-| 28 | Evidence surface | **present** audit | **present** (grounded thread) | Not legal citation chips |
+| # | Name | CSDDD | tantracp / Shakti | **buyer** | Notes |
+|---|---|---|---|---|---|
+| 25 | Autonomy L1–L5; default L3 writes | **present** L1–L3 | **present** L1–L3 + dual L4 | **L2 research / L3 human buy** | buyer: no auto-checkout |
+| 26 | Impact preview before L3 | **partial→strong** | **present** (msg) | **present** (report) | Multi-dim scores + trade-offs |
+| 27 | Dual memory session ≠ durable | **partial** | **present (strong)** | **present (strong)** | buyer: results + learnings + purchased |
+| 28 | Evidence surface | **present** audit | **present** thread | **partial→strong** | buyer: sources/EU DBs; weak price gate |
 
 Artifacts:
 - `CSDDD/docs/ai-native/surface-maps/2026-08-11-tier-b-dogfood.md`
 - `tantracp/docs/ai-native/surface-maps/2026-08-11-tier-b-dogfood.md`
+- `buyer/docs/ai-native/surface-maps/2026-08-11-tier-b-dogfood.md`
 
 ### Tier B′ — still waiting on dogfood / second product
 
@@ -361,4 +362,4 @@ Candidates that *might* earn agent status later (not now):
 ---
 
 *Last built: 2026-08-11. Sources: shapeof.ai; aiuxplayground.com/patterns + frameworks/agentic.*  
-*Dogfood: CSDDD (teamsystem) + tantracp/Shakti (personal) 2026-08-11 — Tier B #25–#28 promoted and dual-confirmed.*
+*Dogfood: CSDDD + tantracp/Shakti + buyer 2026-08-11 — Tier B #25–#28; Eng shared-shortlist fan-out from buyer.*

@@ -115,6 +115,13 @@ How you *enter* a problem matters more than any pattern.
   pre-built (deterministic) code. Reserve tool-use/agentic behavior for cases
   that *require* an observe→act→correct loop. Less autonomy = less cost and
   more predictability.
+- **Shared-shortlist fan-out (parallel specialists).** When N specialist agents
+  would each *discover* candidates, you pay **duplicate search cost** and get
+  **product-identity drift** (different shortlists, unscorable synthesis). Pattern:
+  one **scout** (or deterministic fetch) produces a **closed candidate set**;
+  specialists only **evaluate that set**. Cap `|shortlist|` — cost scales as
+  `O(|shortlist| × N_agents)`. Maps onto Anthropic-style **workflows** over free
+  multi-agent search. *(Promoted 2026-08-11; buyer pipeline v2.)*
 - **Memory: semantic + live state.** Embed content for *retrieval*; a compact
   **state** per entity (where we are, what's working) recomputed only when it
   changes (cursor-cached). Keep *content* embeddings separate from
@@ -406,6 +413,7 @@ evals, §5 maturity) turned on itself:
 | 2026-08-11 | Unattended draft OK; unattended act default off | §1 autonomy ops + §8 #9 |
 | 2026-08-11 | Dual-gate L4 for automatic execution | §1 dual-gate + §8 #9 (Shakti) |
 | 2026-08-11 | Client timer ≠ durable capture | §1 + §8 #10 (from staging) |
+| 2026-08-11 | Shared-shortlist fan-out before parallel specialists | §1 (buyer dogfood) |
 
 ### Staging — raw lessons, not yet promoted
 *Dated observations land here; promote to a building block/principle when one recurs, or prune.*
