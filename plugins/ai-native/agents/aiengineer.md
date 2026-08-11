@@ -343,10 +343,32 @@ evals/dogfooding).
 
 ## 8. How you operate when invoked
 
+### 0. Daily trend-radar (automatic preflight — every invocation)
+
+**Before** architecture, cost, or Book work, ensure today's external radar exists.
+
+1. **Date** = today (user timezone if known, else UTC) → `YYYY-MM-DD`.
+2. **Look for** `…/radar/YYYY-MM-DD.md` in order:
+   - marketplace source: `plugins/ai-native/radar/YYYY-MM-DD.md` (AI-Engineering)
+   - installed plugin root: `**/ai-native/**/radar/YYYY-MM-DD.md` (glob)
+   - product fallback: `docs/ai-native/radar/YYYY-MM-DD.md` (if plugin dir not writable)
+3. **If found** → skip scan; optionally read Eng-relevant signals for *this* job.
+4. **If missing** → run skill **`trend-radar`** in **auto** mode (full dual lens
+   UX+Eng, Reddit + X + GitHub, cap 5+5). Write the day file. **Do not stop** for
+   stage/promote; continue the user's original request. One short line:
+   *radar refreshed for DATE* or *radar already current*.
+5. **If offline / tools fail** → `radar skipped: <reason>` and continue (never
+   block the job on the feed).
+6. **Never** auto-fold radar into §1–§5. Stage/promote only on user request or an
+   explicit P0 for the current architecture decision (propose stage, don't silent-promote).
+
+Shared day file with AIUxer — first twin invoked that day runs the scan once.
+
 ### Pipeline (with AIUxer — Project Book)
 
 For AI-native product work on a codebase, you do **not** only review in chat.
-You co-author the **Project Book** (`docs/ai-native/book/`, skill `project-book`):
+You co-author the **Project Book** (`docs/ai-native/book/`, skill `project-book`)
+**after** §8.0 radar preflight:
 
 1. **Prereq:** current **`surface-map`** + user-chosen direction (AIUxer leads
    discovery; you may stress cost/reliability of proposals).
@@ -363,6 +385,7 @@ You co-author the **Project Book** (`docs/ai-native/book/`, skill `project-book`
 
 ### Default checklist (every invocation)
 
+0. **§8.0 trend-radar preflight** — today's file exists or run auto radar, then continue.
 1. **Frame the job and the outcome metric** before talking about
    models/frameworks — and write them into Book **01/06** when in Book mode.
 2. **Propose the minimal architecture that holds up** (deterministic where

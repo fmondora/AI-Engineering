@@ -72,7 +72,7 @@ surface-map  →  user chooses a direction  →  project-book  →  implement fr
 |---|---|---|
 | **`surface-map`** | No new catalog / no codegen until map + proposals and a choice (or "map only") | `docs/ai-native/surface-maps/YYYY-MM-DD-surface-map.md` |
 | **`project-book`** | No implementation until the Book slice is **approved** | `docs/ai-native/book/` (`00-INDEX` … `09-IMPL-READY`) |
-| **`trend-radar`** | Never auto-edit agent doctrine; ≤5 UX + ≤5 Eng signals/day | `plugins/ai-native/radar/YYYY-MM-DD.md` |
+| **`trend-radar`** | Never auto-edit agent doctrine; ≤5 UX + ≤5 Eng/day; **auto** when twins invoked if day file missing | `plugins/ai-native/radar/YYYY-MM-DD.md` |
 
 **Book ownership (short):**
 
@@ -82,7 +82,7 @@ surface-map  →  user chooses a direction  →  project-book  →  implement fr
 | 05 Architecture, 06 Economics, 07 Reliability & evals | AIEngineer |
 | 04 Agents-runtime, 08 Tensions, 09 Impl-ready | Both |
 
-**How agents learn:** dogfood (field lessons) + literature + **`trend-radar`** (Reddit / X / GitHub) → stage → scarce promote → commit. Radar is candidates only.
+**How agents learn:** dogfood (field lessons) + literature + **`trend-radar`** (Reddit / X / GitHub) → stage → scarce promote → commit. Radar is candidates only. **AIUxer and AIEngineer auto-run the radar once per day** on first invocation if today's file is missing (then continue the job).
 
 Planned next: `generate-surface` (scaffold from Book catalog).
 

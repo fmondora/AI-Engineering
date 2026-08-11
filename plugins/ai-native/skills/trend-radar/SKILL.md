@@ -1,12 +1,11 @@
 ---
 name: trend-radar
 description: >
-  Daily (or on-demand) dual-lens scan of AI-native trends: Reddit, X (Twitter),
-  and GitHub. Writes a capped radar log under plugins/ai-native/radar/ for AIUxer
-  (experience) and AIEngineer (architecture). Does NOT auto-promote into agent
-  doctrine. Use when: "radar", "trend radar", "aggiorna i trend", "daily scan",
-  "cosa c'è di nuovo su GenUI/agents/evals", or scheduled learning for the twin
-  agents. Complements field lessons (dogfood) and literature (stable why).
+  Daily dual-lens scan of AI-native trends: Reddit, X (Twitter), and GitHub.
+  Writes a capped radar log under plugins/ai-native/radar/. Auto-run as
+  preflight when AIUxer or AIEngineer are invoked and today's file is missing
+  (mode: auto — then continue the user's job). Manual: "radar", "trend radar",
+  "aggiorna i trend". Does NOT auto-promote into agent doctrine.
 ---
 
 # Trend radar — Reddit + X + GitHub → staging only
@@ -17,6 +16,16 @@ Your job is a **bounded external scan** that feeds the agents' *learning loop*
 without bloating doctrine. Agents learn via: **radar → optional stage → scarce
 promote → commit**. You own only the first step (and optional stage *proposals*).
 
+## Invocation modes
+
+| Mode | Who starts it | After write |
+|---|---|---|
+| **auto** | AIUxer or AIEngineer §8.0 preflight when `YYYY-MM-DD.md` missing | **Continue** the original user job; no wait for stage; one-line status |
+| **manual** | User asks for radar / daily scan | Show actions table; wait if they want stage/promote |
+
+**Idempotent day:** if today's file already exists, **exit immediately** (report
+"already current") — do not re-scan unless user says **force** / **refresh**.
+
 <HARD-GATE>
 Do **NOT**:
 
@@ -26,15 +35,16 @@ Do **NOT**:
 2. Append more than **5 signals per lens** (UX / Eng) for the day
 3. Treat upvotes, stars, or virality as truth — they are *candidates*
 4. Dump raw feeds or 50-link lists into the radar file
+5. In **auto** mode: block the user on triage questions or refuse the original task
 
-You **MAY** write only under `plugins/ai-native/radar/` (and, if user asks
-**stage**, a single dated bullet under Field lessons → Staging in the matching
-agent — never promote without dogfood/recurrence).
+You **MAY** write under `plugins/ai-native/radar/` (preferred) or product
+`docs/ai-native/radar/` if the plugin tree is not writable. Stage bullets only
+when the user asks **stage**.
 </HARD-GATE>
 
 ## Where artifacts live
 
-Plugin root = this marketplace repo (`AI-Engineering`), not the product repo.
+Prefer the marketplace / plugin tree:
 
 ```text
 plugins/ai-native/radar/
@@ -43,19 +53,29 @@ plugins/ai-native/radar/
   archive/               # optional: move files >30 days with no promote
 ```
 
-If `radar/` is missing, create it. Date = **today** in the user's timezone if known,
-else UTC.
+**Lookup order** (exists? → skip scan):
+
+1. `plugins/ai-native/radar/YYYY-MM-DD.md` (AI-Engineering source)
+2. Any `**/ai-native/**/radar/YYYY-MM-DD.md` (installed plugin)
+3. `docs/ai-native/radar/YYYY-MM-DD.md` (product-local fallback)
+
+**Write order:** plugin path if writable; else product `docs/ai-native/radar/`.
+
+Date = **today** in the user's timezone if known, else UTC.
 
 ## Checklist (do in order)
 
-1. **Resolve date + mode** — full dual scan (default) | UX only | Eng only | query override from user
-2. **Load query pack** — `references/queries.md` (+ user extras)
-3. **Scan sources** — Reddit, X, GitHub (see §Sources); keep notes with URLs
-4. **Triage** — map each hit to AIUxer / AIEngineer / both / noise; drop noise
-5. **Cap & rank** — max **5 UX + 5 Eng** signals; prefer *decision-changing* over hype
-6. **Write** `radar/YYYY-MM-DD.md` from `references/day-template.md`
-7. **Propose actions** — table: ignore | watch | stage | dogfood-on-product (recommend ≤3 stage/dogfood)
-8. **Stop** — wait for user; do not edit agents unless they say stage/promote
+1. **Resolve date + mode** — auto | manual; full dual scan (default) | UX only | Eng only | force
+2. **Idempotent check** — if day file exists and not force → stop (already current)
+3. **Load query pack** — `references/queries.md` (+ user extras)
+4. **Scan sources** — Reddit, X, GitHub (see §Sources); keep notes with URLs
+5. **Triage** — map each hit to AIUxer / AIEngineer / both / noise; drop noise
+6. **Cap & rank** — max **5 UX + 5 Eng** signals; prefer *decision-changing* over hype
+7. **Write** day file from `references/day-template.md`
+8. **Actions**
+   - **manual:** table ignore | watch | stage | dogfood; wait if needed
+   - **auto:** put recommended actions *inside the file only*; return to parent agent job
+9. **Do not** edit agents unless user said stage/promote
 
 ## Sources
 

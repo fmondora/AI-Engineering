@@ -15,13 +15,21 @@ Owned by skill **`trend-radar`**.
 
 ## How to run
 
-From the AI-Engineering plugin workspace (or any project with the plugin installed):
+### Automatic (default for twins)
+
+Whenever **AIUxer** or **AIEngineer** is invoked, they run a **§8.0 preflight**:
+
+- If `radar/YYYY-MM-DD.md` **exists** → skip  
+- If **missing** → run `trend-radar` in **auto** mode (Reddit + X + GitHub), write the file, **continue** the user job  
+- First twin of the day fills the file; the other reuses it  
+
+### Manual
 
 ```text
 /trend-radar
 ```
 
-or: *“run the trend radar”* / *“aggiorna i trend”*.
+or: *“run the trend radar”* / *“force refresh radar”*.
 
 Optional: *UX only* · *Eng only* · extra queries.
 

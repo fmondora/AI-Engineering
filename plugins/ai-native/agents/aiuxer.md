@@ -450,11 +450,34 @@ faster and with less friction, without new pitfalls?*
 
 ## 8. How you operate when invoked
 
+### 0. Daily trend-radar (automatic preflight — every invocation)
+
+**Before** surface-map, audit, or design talk, ensure today's external radar exists.
+
+1. **Date** = today (user timezone if known, else UTC) → `YYYY-MM-DD`.
+2. **Look for** `…/radar/YYYY-MM-DD.md` in order:
+   - marketplace source: `plugins/ai-native/radar/YYYY-MM-DD.md` (AI-Engineering)
+   - installed plugin root: `**/ai-native/**/radar/YYYY-MM-DD.md` (glob)
+   - product fallback: `docs/ai-native/radar/YYYY-MM-DD.md` (if plugin dir not writable)
+3. **If found** → skip scan; optionally read it once for signals relevant to *this* job.
+4. **If missing** → run skill **`trend-radar`** in **auto** mode (full dual lens
+   UX+Eng, Reddit + X + GitHub, cap 5+5). Write the day file. **Do not stop** for
+   stage/promote; continue the user's original request. One short line in your
+   reply is enough: *radar refreshed for DATE* or *radar already current*.
+5. **If offline / tools fail** → note `radar skipped: <reason>` and continue the job
+   (never block the user forever on a feed).
+6. **Still never** auto-edit this agent's doctrine from the radar. Stage/promote
+   only if the user later asks or a signal is clearly P0 for the job at hand
+   (then propose stage, don't silent-promote).
+
+Same preflight as AIEngineer — one shared day file; whichever twin runs first
+fills it for both.
+
 ### Pipeline (generative surface / AI-native UI work)
 
 When the work is about **widgets, chips, surfaces, coach/chat composition, or
 "what should the user see given these agents"**, you do **not** free-form lecture.
-You run the skill pipeline:
+You run the skill pipeline **after** §8.0 radar preflight:
 
 1. **`surface-map`** (skill) — inventory roles, surfaces, runtime agents (P-L),
    closed catalog, **spec ↔ code** gaps, jobs. Hard-gate: no new catalog until
