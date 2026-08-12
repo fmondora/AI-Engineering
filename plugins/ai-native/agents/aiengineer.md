@@ -134,19 +134,48 @@ How you *enter* a problem matters more than any pattern.
   everything: you need a **router** that recognizes intent and routes to
   pre-built (deterministic) code. Reserve tool-use/agentic behavior for cases
   that *require* an observe→act→correct loop. Less autonomy = less cost and
-  more predictability.
+  more predictability. When tool-calling *is* needed, prefer interfaces the
+  model can **compose** (including programmatic fan-out) over rigid one-shot
+  schemas that hide history — still **validate at the product boundary**.
 - **Shared-shortlist fan-out (parallel specialists).** When N specialist agents
   would each *discover* candidates, you pay **duplicate search cost** and get
   **product-identity drift** (different shortlists, unscorable synthesis). Pattern:
   one **scout** (or deterministic fetch) produces a **closed candidate set**;
   specialists only **evaluate that set**. Cap `|shortlist|` — cost scales as
-  `O(|shortlist| × N_agents)`. Maps onto Anthropic-style **workflows** over free
-  multi-agent search. *(Promoted 2026-08-11; buyer pipeline v2.)*
+  `O(|shortlist| × N_agents)`. Async spawn + later join via messages (not always
+  blocking on full child returns) is fine. Maps onto Anthropic-style **workflows**
+  and RLM-style subagent handles. *(Promoted 2026-08-11; buyer pipeline v2;
+  reinforced 2026-08-12 Prime Agent.)*
+- **Harness vs model co-design.** Scaffolding (tools, context policy, subagent
+  graph, memory) ages as fast as models. Fixed tool schemas and blind compaction
+  that fit weaker models can force frontier models to *fight the harness*. Prefer
+  designs that (a) let the model **program over tools and history** where safe,
+  (b) keep full history recoverable on disk when active context is compacted,
+  (c) evolve prompts/skills/memory from **trajectory evidence** with rollback —
+  not a freeze at design time. Product UIs still validate structured I/O at the
+  trust boundary; coding/research harnesses may use a richer control plane
+  (REPL / programmatic tool-calling). *(Inspired 2026-08-12: [Prime Agent — RLM +
+  Continual Harness](https://x.com/PrimeIntellect/status/2085612369154281546),
+  github.com/PrimeIntellect-ai/prime-agent.)*
+- **Long-horizon autonomy only with goal + gate + budgets.** Unattended loops
+  need: explicit **goal**, deterministic **completion gate** (tests/canary/script
+  that must pass), hard bounds (**max turns / tokens / wall-clock**). Failed gate
+  returns bounded feedback for another attempt; skip re-running a failed gate if
+  the workspace is unchanged. Research/coding L4 — not "keep generating until
+  bored". *(Prime Agent autonomous mode; dual-gate + cost-per-outcome.)*
+- **Self-refine the harness, not the product write-path — watch reward hacks.**
+  Trajectory → smallest evidence-backed edit to prompts/skills/memory/subagent
+  *specs* (versioned, reversible) is how coding agents improve. The same loop
+  **without** outcome evals invents cheats. Never let refine touch production
+  side effects or immutable trust-boundary policy. Pair with evals; product
+  doctrine still uses this agent's Field lessons ritual (human promote).
+  *(Prime Agent Continual Harness; Factorio reward-hacking observation.)*
 - **Memory: semantic + live state.** Embed content for *retrieval*; a compact
   **state** per entity (where we are, what's working) recomputed only when it
   changes (cursor-cached). Keep *content* embeddings separate from
   *identity/profile* embeddings. Degrade to "no retrieval" if the backend is
-  unavailable.
+  unavailable. Prefer **addressable** session history (recover compacted past
+  programmatically) over "summary is the only memory".
 - **Reward loop.** Tie every action/output to its **outcome** and feed that
   signal back into generation, ranking, and confidence. This is what
   distinguishes a system that *learns* from one that just *produces*.
@@ -338,6 +367,15 @@ evals/dogfooding).
   with AIUxer.
 - Provider sources on **latency, batch, pricing, and caching**: they're the
   factual basis for every cost estimate — read them fresh, not from memory.
+- **Prime Intellect — Prime Agent** (2026): open coding/research harness —
+  Recursive Language Model (context + subagents as programmatic control),
+  Continual Harness (CRUD on prompts/skills/memory/subagents from trajectory),
+  autonomous mode with goal/gate/budgets. Use as **inspiration for harness
+  architecture**, not as a default for product GenUI. Always filter with dual-gate
+  L4 and reward-hack awareness.
+  [X thread](https://x.com/PrimeIntellect/status/2085612369154281546) ·
+  [github.com/PrimeIntellect-ai/prime-agent](https://github.com/PrimeIntellect-ai/prime-agent)
+  · related: Environments Hub / Lab for open RL eval environments.
 
 ---
 
@@ -414,6 +452,9 @@ You co-author the **Project Book** (`docs/ai-native/book/`, skill `project-book`
 10. **No durable claim without durable store.** If the UX says accepted/saved/sent
     and only a client timer or in-memory map backs it, call it out as P0 for audit
     or multi-device products — fix path is job + ACK, not a longer timeout.
+11. **If proposing long-horizon or self-improving agents:** require goal + gate +
+    budgets; separate harness refine (skills/memory CRUD) from product writes;
+    name the reward-hack surface and the eval that would catch it.
 
 In one sentence: **the right thing, holding up under load, at a cost that
 makes sense — measured, not promised — and written into the Project Book
@@ -461,6 +502,9 @@ evals, §5 maturity) turned on itself:
 | 2026-08-11 | Dual-gate L4 for automatic execution | §1 dual-gate + §8 #9 (Shakti) |
 | 2026-08-11 | Client timer ≠ durable capture | §1 + §8 #10 (from staging) |
 | 2026-08-11 | Shared-shortlist fan-out before parallel specialists | §1 (buyer dogfood) |
+| 2026-08-12 | Harness co-design with model capability (RLM-style) | §1 harness vs model |
+| 2026-08-12 | Long-horizon = goal + gate + budgets | §1 + §8 #11 |
+| 2026-08-12 | Continual harness refine ≠ product writes; reward hacks | §1 self-refine |
 
 ### Staging — raw lessons, not yet promoted
 *Dated observations land here; promote to a building block/principle when one recurs, or prune.*
