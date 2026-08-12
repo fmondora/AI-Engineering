@@ -29,9 +29,21 @@ propose something, you give a recommendation, not a catalog of options.
 
 **Closed-vocabulary generative UI, deterministic wherever possible, confirm-only
 on actions.** The AI *reasons and composes*, but neither generates arbitrary markup nor
-acts on its own. This is a deliberate stance against the "generate the whole
-interface at runtime" vision: you pay for it in customization, you gain
+acts on its own. This is a deliberate stance against unconstrained "generate the
+whole interface at runtime": you pay for it in customization, you gain
 robustness, consistency, speed and trust.
+
+**GenUI spectrum (name it explicitly — choose deliberately):**
+
+| Kind | What the model emits | Stance for product work |
+|---|---|---|
+| **Controlled** | Events / tool results mapped to pre-built components (e.g. AG-UI-style event streams) | **Default home** for AI-native products |
+| **Declarative** | Structured UI descriptions over an allow-listed component set (A2UI, Open-JSON-UI, our catalog) | **Default home** — same as closed vocab (P-A) |
+| **Open-ended** | Free HTML/JS/app blobs (MCP Apps, canvas-style) | **Exception only**: sandboxed, not primary product chrome |
+
+Text-only chat is not the ceiling — but **chat is not always the only surface** either
+(conversational family vs dashboard family stay distinct). The unit is the
+**experience / job**, not the app shell.
 
 Two axes not to be confused:
 - **Interface axis** — *how* the AI composes what you see (widgets, layout,
@@ -303,6 +315,20 @@ Use this scale to place a system and point to the next rung.
     score/class is shown. Decorative citation chips in free prose are optional;
     silent drop of ungrounded claims without user/auditor signal is not.
     *(Dogfood CSDDD: `grounding.ts` + lineage-panel + gap-evidence-trace.)*
+29. **Name the GenUI kind before designing** — Controlled / Declarative /
+    Open-ended (§0 spectrum). If the pitch is "MCP Apps / free HTML", force the
+    sandbox + trust discussion or push back to declarative catalog. Protocols
+    (AG-UI events, A2UI, etc.) are **transport** for controlled/declarative
+    composition — they do not license open-ended chrome by default.
+    *(Inspired 2026-02 GenUI meetup notes via [Ethan Kong](https://x.com/ethankongee/status/2022321017759363505);
+    aligns P-A + #1 + #19.)*
+30. **Steerable generation (interrupt + early signal)** — while UI or prose is
+    still forming: show partial structure early (streaming + skeletons), keep the
+    composer **always typeable**, allow cancel/steer mid-flight, prefer working
+    *alongside* the user (co-creation) over a long silent black box. Complements
+    #13 (streaming) and #25 (interrupt at L4). Does **not** mean every product
+    is a single chat super-app — dashboard jobs stay dashboard-shaped.
+    *(Same GenUI meetup thread; dogfood: coach composer + Shakti interrupt norms.)*
 
 ---
 
@@ -343,6 +369,11 @@ exist, you **add a token**, not a hardcode. Token rigidity also serves
   rating calcolato; "messaggio inviato" ≠ relazione ok / reply won. Close the
   elicitation job honestly; measure outcomes in ledger/evals separately.
   *(CSDDD + tantracp 2026-08-11.)*
+- **Open-ended GenUI as product default** (free markup / MCP app chrome without
+  sandbox + closed alternative) → violates P-A; use only as explicit exception (#29).
+- **"Everything is one chat super-app"** when jobs need labeled dashboard families →
+  double mental model / redundant surfaces (§5); experience unit ≠ single chat pane.
+- **Silent long generation** (no stream, no interrupt, composer locked) → fails #13/#30.
 - Masking errors (a proxy that fakes 200) → degrade with honesty (#P-D).
 - Lists that are "pretty but slow" because they go through the AI → instant (#4).
 - Synchronous download that blocks the view → cache-first + lazy + on-demand (#15).
@@ -551,7 +582,13 @@ the user always decides.
   counterpoint to this one (compare the pattern vocabulary).
 - CopilotKit — *The Developer's Guide to Generative UI in 2026*: implementation-focused
   take (tool-calling → pre-built components), useful for the
-  "composition by reference" pattern (#19).
+  "composition by reference" pattern (#19). **AG-UI** event protocol for controlled
+  GenUI streams (agent ↔ UI).
+- **GenUI taxonomy (Controlled / Declarative / Open-ended)** and steerable UX notes —
+  industry meetup summary via Ethan Kong (2026-02), useful vocabulary; our default
+  remains Controlled+Declarative closed catalog.
+  [thread](https://x.com/ethankongee/status/2022321017759363505) · related: A2UI,
+  Open-JSON-UI, MCP Apps (open-ended — exception path only).
 - 2025-26 thread on *making AI-driven changes visible/explainable* ("AI
   suggested this…") and on *domain-grounded* architectures that intercept
   inaccuracy before it reaches the user — anchors of P-I and of the "double
@@ -605,6 +642,8 @@ own doctrine turned on itself:
 | 2026-08-11 | #25–#28 confirmed on second product (tantracp/Shakti) | Patterns **#25–#28** |
 | 2026-08-11 | L4 send needs dual gate (`auto_send ∧ confirm`) | Pattern **#25** (Shakti tick) |
 | 2026-08-11 | Elicitation/send success ≠ domain outcome | Anti-pattern + note under P-D / #28 |
+| 2026-08-12 | GenUI spectrum Controlled / Declarative / Open-ended | §0 + pattern **#29** |
+| 2026-08-12 | Steerable generation (stream + interrupt + co-create) | Pattern **#30** |
 
 ### Staging — raw lessons, not yet promoted
 *Dated observations land here; promote to a principle/pattern when one recurs, or prune.*
