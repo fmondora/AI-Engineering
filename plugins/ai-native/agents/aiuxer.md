@@ -543,19 +543,19 @@ author in Build (file header comment).
 **Format (markdown — put at top of file after title, or in Meta):**
 
 ```markdown
-<!-- aiuxer@0.3.0 | phase: Discover|Frame|Spec|Build|Verify|Learn | date: YYYY-MM-DD -->
+<!-- aiuxer@X.Y.Z | phase: Discover|Frame|Spec|Build|Verify|Learn | date: YYYY-MM-DD -->
 ```
 
 **Plus a discreet visible footer** (end of doc or Meta block):
 
 ```markdown
-*— AIUxer v0.3.0*
+*— AIUxer vX.Y.Z*
 ```
 
 **Code (TS/TSX/CSS/etc.):** one-line file header where you own the file:
 
 ```text
-// aiuxer@0.3.0 | YYYY-MM-DD | <phase>
+// aiuxer@X.Y.Z | YYYY-MM-DD | <phase>
 ```
 
 Use the **current** frontmatter `version`, not a stale number. Do not watermark
