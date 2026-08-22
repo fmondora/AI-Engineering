@@ -100,10 +100,38 @@ From any project (Claude Code):
 
 Then enable auto-update (see **Updating**).
 
+---
+
+## Hello World (E2E)
+
+Full walkthrough lives in **[`examples/hello-agentic/`](examples/hello-agentic/)**: a tiny product that exercises **human pipelines + KB → AIUxer interaction/memory → AIEngineer tech deltas → Book gates → runnable UI**.
+
+### 60-second demo
+
+```bash
+cd examples/hello-agentic/frontend
+python3 -m http.server 8765
+# open http://localhost:8765 — click tip chips; session notes appear
+```
+
+### E2E path (redo with the twins)
+
+| Step | Who | What |
+|---|---|---|
+| 0 | **You** | Define `pipelines/` + `knowledge/` (already filled in the example) |
+| 1 Discover | **AIUxer** | `/surface-map` → choose a proposal |
+| 2–3 Frame/Spec | **AIUxer + AIEngineer** | `/project-book` (incl. `02-STACK`) → **you approve** |
+| 4 Build | **AIUxer** (+ Eng if new tech) | Implement from Book §09 |
+| 5 Verify | **AIUxer** | Canaries: enum ⊆ renderer, kind+wire named, watermarks |
+| 6 Learn | **AIUxer** | *apprendi* → brainstorm → you decide stage/promote |
+
+Golden artifacts are checked in under `examples/hello-agentic/docs/ai-native/` so you can compare what the agents should produce. Details: [`examples/hello-agentic/README.md`](examples/hello-agentic/README.md).
+
 ### Invoke
 
 | Intent | What to say / use |
 |---|---|
+| **Hello World E2E** | Open `examples/hello-agentic` · follow its README |
 | Map the generative surface | `/surface-map` or ask AIUxer to run the surface map |
 | Design before code | After a direction: `/project-book` or "write the project book" |
 | Daily / on-demand trend scan | `/trend-radar` (Reddit + X + GitHub → `radar/`) |
@@ -114,7 +142,7 @@ Then enable auto-update (see **Updating**).
 
 ### Project setup (once per product repo)
 
-In the product's `CLAUDE.md` (or `AGENTS.md`), add a **Surface map paths** section so skills find specs, registry, renderer, and agents without hardcoding a product. Example shape:
+In the product's `CLAUDE.md` (or `AGENTS.md`), add a **Surface map paths** section so skills find specs, registry, renderer, and agents without hardcoding a product. See `examples/hello-agentic/CLAUDE.md` for a complete template.
 
 ```markdown
 ## Surface map paths
@@ -125,6 +153,8 @@ In the product's `CLAUDE.md` (or `AGENTS.md`), add a **Surface map paths** secti
 - Shell: frontend/src/shell/
 - Design root / impl root: … (if split repos)
 ```
+
+Also declare **human-owned** pipelines + knowledge paths (AIUxer must not invent them).
 
 Product catalog **contents** stay in the product repo. Agents stay universal.
 
@@ -169,7 +199,8 @@ The `ai-native` plugin has **no pinned `version`** — Claude Code tracks by git
 
 ## Changelog
 
-- **AIUxer redesign (branch)** — design+impl mandate; Knowledge→Agents→UI stack; phases Discover→Learn; Book `02-STACK`; human owns pipelines/KB.
+- **`examples/hello-agentic`** — E2E Hello World (pipelines + KB → Book → closed-catalog UI + watermarks).
+- **AIUxer redesign** — design+impl mandate; Knowledge→Agents→UI stack; phases Discover→Learn; Book `02-STACK`; Learn mode; human owns pipelines/KB.
 - **`trend-radar` skill** — dual-lens scan (Reddit + X + GitHub) into capped `radar/YYYY-MM-DD.md`; stage/promote still human-gated.
 - **Field absorb (CSDDD + tantracp 2026-08-11)** — AIUxer **#25–#28** (autonomy ladder, impact preview, dual memory, evidence surface); AIEngineer dual-gate L4, unattended draft vs act, client timer ≠ durable capture; pattern crosswalk (Shape of AI / AI UX Playground).
 - **`project-book` skill** — per-project dual-lens Book before implementation; wired into both agents and surface-map handoff.

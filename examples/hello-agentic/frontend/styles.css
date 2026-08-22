@@ -1,0 +1,85 @@
+/* aiuxer@0.3.1 | 2026-08-22 | Build */
+:root {
+  --bg: #0f1419;
+  --panel: #1a222c;
+  --text: #e7ecf1;
+  --muted: #8b9aab;
+  --accent: #5b9fd4;
+  --border: #2a3542;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+.app-shell {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+}
+.shell-header {
+  grid-column: 1 / -1;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.shell-main {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.shell-memory {
+  border-left: 1px solid var(--border);
+  background: var(--panel);
+  padding: 1rem;
+}
+.muted {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.w.greeting {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.w.faq-card {
+  padding: 1rem;
+  background: var(--panel);
+  border-radius: 8px;
+}
+.w.tip-chip {
+  align-self: flex-start;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+}
+.w.tip-chip:hover {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.wm {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+#notes {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+}
+#notes li {
+  margin: 0.25rem 0;
+  padding: 0.35rem 0.5rem;
+  background: var(--bg);
+  border-radius: 4px;
+}
