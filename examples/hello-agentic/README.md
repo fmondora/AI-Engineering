@@ -2,15 +2,26 @@
 
 End-to-end playground for the **ai-native** plugin (AIUxer + AIEngineer).
 
-Toy product: a **Hello Assistant** with a **closed catalog** (`greeting`, `faq-card`, `tip-chip`), human-owned pipeline + static KB, session memory panel, Book + surface-map already filled as the golden path.
+Toy product: chat with **Hello Agent** — an **onboarding guide** with a **closed catalog** (`greeting`, `faq-card`, `tip-chip`), human-owned pipeline + static KB, session memory panel, Book + surface-map as the golden path.
 
 ```text
 Human: pipelines/ + knowledge/
     → Discover (surface-map)
     → Frame / Spec (Book + 02-STACK)
-    → Build (catalog + demo UI)     ← you are looking at the result
+    → Build (catalog + conversational UI)  ← you are looking at the result
     → Verify / Learn
 ```
+
+## What Hello Agent does
+
+| Does | Does not |
+|---|---|
+| Conversational onboarding for this playground | Invent facts outside `knowledge/` |
+| Answers from KB; cites `fonte` | Open-ended HTML / unknown widgets |
+| Tip chips + free-text matcher (deterministic v1) | Durable server memory |
+| Session notes: name, language, opened tips | Writes / send / checkout |
+
+Try: `Who are you?` · `What are the twins?` · `my name is Anna` · or click a tip.
 
 ## Prerequisites
 
@@ -23,14 +34,26 @@ Open **`examples/hello-agentic`** as the project (or cwd) so `CLAUDE.md` paths r
 
 ## Run the demo UI
 
-No build step:
+Prefer the **local server** (static UI + LLM Hello Agent):
 
 ```bash
-cd examples/hello-agentic/frontend
-python3 -m http.server 8765
+cd examples/hello-agentic
+./run.sh                        # http://127.0.0.1:8765
 ```
 
-Open http://localhost:8765 — click tip chips; session notes appear in the memory panel.
+| Provider | When |
+|---|---|
+| **grok-cli** | `grok` on PATH — preferred when launched from Grok Build (`GROK_AGENT=1`) · each turn `grok -p` |
+| **claude-cli** | `claude` on PATH — preferred from Claude Code · each turn `claude -p` |
+| anthropic | `ANTHROPIC_API_KEY` set |
+| xai | `XAI_API_KEY` set |
+| deterministic | none of the above |
+
+From **this Grok Build CLI** or **Claude Code**: `./run.sh` — Hello Agent uses that CLI’s login (`grok -p` / `claude -p`) and chooses widgets. No separate API key required.
+
+`HELLO_LLM_PROVIDER=grok-cli|claude-cli|anthropic|xai` forces a provider.
+
+Flow: **you → Hello Agent (LLM) → JSON blocchi → renderer** (`greeting` / `faq-card` / `tip-chip`).
 
 ## Hello World — redo the E2E yourself
 
@@ -40,7 +63,7 @@ Use this folder as the sandbox. Either **inspect** the checked-in artifacts or *
 
 | File | Role |
 |---|---|
-| `pipelines/hello-assistant.md` | Agentic pipeline |
+| `pipelines/hello-assistant.md` | Agentic pipeline (Hello Agent job) |
 | `knowledge/` | Static KB |
 | `CLAUDE.md` | Surface map paths |
 
@@ -67,22 +90,23 @@ Approve the Book before Build.
 
 ### Step 4 — Build
 
-AIUxer implements interaction + memory panel from §09 (see `frontend/`, `src/agents/`).  
+AIUxer implements conversation + memory panel from §09 (see `frontend/`, `src/agents/`).  
 AIEngineer only if you open a tech delta (e.g. AG-UI) in `02-STACK`.
 
 ### Step 5 — Verify
 
 Canaries:
 
-- [ ] Tip click → FAQ, no unknown-type fallback
-- [ ] Shell/memory chrome **not** in catalog
+- [ ] Chat or tip → FAQ, no unknown-type fallback
+- [ ] KB miss → honest refusal + tips (no invention)
+- [ ] Shell/composer/memory chrome **not** in catalog
 - [ ] Watermarks on AIUxer-authored files
 - [ ] `02-STACK` names GenUI kind + wire
 
 ### Step 6 — Learn (optional)
 
 ```text
-AIUxer: apprendi
+AIUxer: learn
 ```
 
 Uses today's radar + this session; you decide stage/promote/ignore.
@@ -90,12 +114,17 @@ Uses today's radar + this session; you decide stage/promote/ignore.
 ## Layout
 
 ```text
-pipelines/          human — agentic pipeline
-knowledge/          human — static KB
-specs/              catalog contract
-src/agents/         Hello Assistant (P-L)
-frontend/           closed catalog + shell + runnable demo
-docs/ai-native/     surface-map + Book (AIUxer/Eng)
+pipelines/                    human — Hello Agent pipeline
+knowledge/                    human — static KB
+specs/                        catalog contract
+src/agents/assistant.ts       Hello Agent (typed)
+frontend/
+  demo.js                     entry (imports modules)
+  src/widgets/tipi.js         closed catalog
+  src/widgets/renderer.js     greeting · faq-card · tip-chip
+  src/shell/shell.js          chat + Memory sidebar (not catalog)
+  src/agent/hello-agent.js    runtime agent
+docs/ai-native/               surface-map + Book (AIUxer/Eng)
 ```
 
 ## What this proves
@@ -103,7 +132,7 @@ docs/ai-native/     surface-map + Book (AIUxer/Eng)
 | Claim | Evidence here |
 |---|---|
 | Human owns pipelines + KB | `pipelines/`, `knowledge/` |
-| AIUxer owns interaction + user memory UX | catalog, demo, memory panel, Book 01–03/02-STACK |
+| AIUxer owns interaction + user memory UX | chat, catalog, memory panel, Book 01–03/02-STACK |
 | Eng owns tech beyond active | 02-STACK deferred AG-UI; 05–07 |
 | Process gates | map → Book approve → Build |
 | Watermark | `aiuxer@0.3.1` on AIUxer artifacts |

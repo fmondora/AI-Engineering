@@ -1,14 +1,14 @@
 // aiuxer@0.3.1 | 2026-08-22 | Build
 /**
  * Shell chrome — NOT in generative catalog.
- * Typed twin of shell.js — chat (main) · Memory (sidebar).
+ * Layout: chat with Hello Agent (main) · Memory (sidebar).
  */
 
-export function renderShell(opts: {
-  feedHtml: string;
-  memoryHtml: string;
-  placeholder?: string;
-}): string {
+/**
+ * @param {{ feedHtml: string, memoryHtml: string, placeholder?: string }} opts
+ * @returns {string}
+ */
+export function renderShell(opts) {
   const placeholder =
     opts.placeholder ??
     'Message Hello Agent… (try: Who are you? / my name is Anna)';
@@ -34,6 +34,9 @@ export function renderShell(opts: {
 </div>`;
 }
 
-function escapeAttr(s: string): string {
-  return s.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
+/**
+ * @param {string} s
+ */
+function escapeAttr(s) {
+  return String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;');
 }

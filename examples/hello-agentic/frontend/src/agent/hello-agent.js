@@ -1,127 +1,111 @@
+// aiuxer@0.3.1 | 2026-08-22 | Build
 /**
- * Hello Agent — only user-facing speaker (P-L).
- * Job: onboarding guide. Emits catalog types only; facts from knowledge/.
- * Deterministic matcher — typed twin of frontend/src/agent/hello-agent.js.
+ * Hello Agent — onboarding guide (browser twin of src/agents/assistant.ts).
+ * Emits catalog types only; facts from knowledge/faq.md (inlined map).
  */
-import type { Blocco, TipId } from '../../frontend/src/widgets/tipi';
-import { TIP_IDS, TIP_LABEL } from '../../frontend/src/widgets/tipi';
+import { TIP_IDS, TIP_LABEL } from '../widgets/tipi.js';
 
-export type Mossa = {
-  readonly prosa?: string;
-  readonly blocchi: readonly Blocco[];
-};
+/**
+ * @typedef {{ nome?: string, lingua?: 'it' | 'en', opened: string[] }} Sessione
+ * @typedef {{ prosa?: string, blocchi: object[] }} Mossa
+ */
 
-export type Sessione = {
-  nome?: string;
-  lingua?: 'it' | 'en';
-  opened: TipId[];
-};
-
-type FaqEntry = {
-  tipId: TipId;
-  domanda: string;
-  risposta: string;
-  keywords: readonly string[];
-};
-
-/** Mirrors knowledge/faq.md — keep in sync when editing KB. */
-const FAQ: readonly FaqEntry[] = [
-  {
-    tipId: 'what-is-this',
+/** Mirrors knowledge/faq.md */
+const FAQ = {
+  'what-is-this': {
     domanda: 'What is this?',
     risposta:
       'A minimal product to exercise AI-Engineering end-to-end: pipelines + KB → AIUxer interaction → AIEngineer tech deltas → Book → closed-catalog UI.',
     keywords: ['what is this', "cos'è", 'playground', 'hello agentic', 'this project'],
   },
-  {
-    tipId: 'who-are-you',
+  'who-are-you': {
     domanda: 'Who are you?',
     risposta:
       'I am Hello Agent, the only user-facing speaker here. I onboard you from the knowledge base, offer tip chips, and keep session notes. I do not invent facts outside knowledge/.',
     keywords: ['who are you', 'chi sei', 'your name', 'hello agent', 'assistente'],
   },
-  {
-    tipId: 'twins',
+  twins: {
     domanda: 'Who are the twins?',
     risposta:
       'AIUxer designs/implements interaction + user memory. AIEngineer owns architecture, cost, evals, and tech beyond the active stack in Book 02-STACK. Humans own pipelines and the KB.',
     keywords: ['twin', 'aiuxer', 'aiengineer', 'plugin', 'ai-native'],
   },
-  {
-    tipId: 'genui-band',
+  'genui-band': {
     domanda: 'Which GenUI band?',
     risposta:
       'Controlled + Declarative closed catalog — not open-ended HTML. Only greeting, faq-card, tip-chip.',
     keywords: ['genui', 'catalog', 'band', 'open-ended', 'widget', 'html'],
   },
-  {
-    tipId: 'memory',
+  memory: {
     domanda: 'Where is my memory?',
     risposta:
       'Session notes in the memory panel (client-only in v1): tips you opened, optional name, language note. Not a durable server store — see Book 02-STACK.',
     keywords: ['memory', 'memoria', 'session', 'remember', 'ricorda'],
   },
-  {
-    tipId: 'how-to-talk',
+  'how-to-talk': {
     domanda: 'How should I talk to you?',
     risposta:
       'Type freely or click a tip. Ask about this playground, the twins, GenUI, or memory. If it is not in the KB, I will say so and offer tips — I will not invent.',
     keywords: ['how to', 'come parlo', 'help', 'aiuto', 'commands'],
   },
-];
+};
 
-function faqCard(entry: FaqEntry): Blocco {
+/**
+ * @param {string} tipId
+ */
+function faqCard(tipId) {
+  const faq = FAQ[tipId];
   return {
     tipo: 'faq-card',
-    domanda: entry.domanda,
-    risposta: entry.risposta,
+    domanda: faq.domanda,
+    risposta: faq.risposta,
     fonte: 'knowledge/faq.md',
   };
 }
 
-function tipChips(ids: readonly TipId[] = TIP_IDS): Blocco[] {
+/**
+ * @param {readonly string[]} [ids]
+ */
+function tipChips(ids = TIP_IDS) {
   return ids.map((tipId) => ({
-    tipo: 'tip-chip' as const,
+    tipo: 'tip-chip',
     tipId,
     etichetta: TIP_LABEL[tipId],
   }));
 }
 
-function findFaq(tipId: TipId): FaqEntry {
-  const hit = FAQ.find((f) => f.tipId === tipId);
-  if (!hit) throw new Error(`unknown tipId: ${tipId}`);
-  return hit;
-}
-
-function matchFaq(text: string): FaqEntry | undefined {
+/**
+ * @param {string} text
+ */
+function matchFaq(text) {
   const t = text.toLowerCase().trim();
-  let best: FaqEntry | undefined;
+  let best;
   let score = 0;
-  for (const entry of FAQ) {
+  for (const tipId of TIP_IDS) {
+    const entry = FAQ[tipId];
     let s = 0;
     for (const kw of entry.keywords) {
       if (t.includes(kw)) s += kw.length;
     }
     if (s > score) {
       score = s;
-      best = entry;
+      best = tipId;
     }
   }
   return score > 0 ? best : undefined;
 }
 
-export function applicaIntentiSessione(
-  sessione: Sessione,
-  text: string,
-): { sessione: Sessione; ack?: string } {
+/**
+ * @param {Sessione} sessione
+ * @param {string} text
+ */
+export function applicaIntentiSessione(sessione, text) {
   const t = text.trim();
-  const next: Sessione = { ...sessione, opened: [...sessione.opened] };
-  let ack: string | undefined;
+  const next = { ...sessione, opened: [...sessione.opened] };
+  let ack;
 
   const nameIt = t.match(/mi chiamo\s+([A-Za-zÀ-ÿ][\wÀ-ÿ-]{0,40})/i);
-  const nameEn = t.match(
-    /(?:i(?:'m| am)|call me|my name is)\s+([A-Za-zÀ-ÿ][\wÀ-ÿ-]{0,40})/i,
-  );
+  const nameEn = t.match(/(?:i(?:'m| am)|call me|my name is)\s+([A-Za-zÀ-ÿ][\wÀ-ÿ-]{0,40})/i);
   const name = nameIt?.[1] ?? nameEn?.[1];
   if (name) {
     next.nome = name;
@@ -139,7 +123,11 @@ export function applicaIntentiSessione(
   return { sessione: next, ack };
 }
 
-export function mossaApertura(sessione: Sessione = { opened: [] }): Mossa {
+/**
+ * @param {Sessione} [sessione]
+ * @returns {Mossa}
+ */
+export function mossaApertura(sessione = { opened: [] }) {
   const chi = sessione.nome ? `, ${sessione.nome}` : '';
   return {
     prosa: `Hi${chi}. I am Hello Agent — your onboarding guide for this playground. Ask me anything in the KB, or pick a tip.`,
@@ -154,11 +142,20 @@ export function mossaApertura(sessione: Sessione = { opened: [] }): Mossa {
   };
 }
 
-export function mossaDaTip(
-  tipId: TipId,
-  sessione: Sessione,
-): { mossa: Mossa; sessione: Sessione } {
-  const entry = findFaq(tipId);
+/**
+ * @param {string} tipId
+ * @param {Sessione} sessione
+ */
+export function mossaDaTip(tipId, sessione) {
+  if (!FAQ[tipId]) {
+    return {
+      sessione,
+      mossa: {
+        prosa: 'Unknown tip — not in the closed set.',
+        blocchi: tipChips(),
+      },
+    };
+  }
   const opened = sessione.opened.includes(tipId)
     ? sessione.opened
     : [...sessione.opened, tipId];
@@ -166,33 +163,28 @@ export function mossaDaTip(
     sessione: { ...sessione, opened },
     mossa: {
       prosa: 'From the knowledge base:',
-      blocchi: [
-        faqCard(entry),
-        ...tipChips(TIP_IDS.filter((id) => id !== tipId).slice(0, 3)),
-      ],
+      blocchi: [faqCard(tipId), ...tipChips(TIP_IDS.filter((id) => id !== tipId).slice(0, 3))],
     },
   };
 }
 
-export function mossaDaUtente(
-  text: string,
-  sessione: Sessione,
-): { mossa: Mossa; sessione: Sessione } {
+/**
+ * @param {string} text
+ * @param {Sessione} sessione
+ */
+export function mossaDaUtente(text, sessione) {
   const { sessione: afterIntent, ack } = applicaIntentiSessione(sessione, text);
   const hit = matchFaq(text);
 
   if (hit) {
-    const opened = afterIntent.opened.includes(hit.tipId)
+    const opened = afterIntent.opened.includes(hit)
       ? afterIntent.opened
-      : [...afterIntent.opened, hit.tipId];
+      : [...afterIntent.opened, hit];
     return {
       sessione: { ...afterIntent, opened },
       mossa: {
         prosa: ack ?? 'From the knowledge base:',
-        blocchi: [
-          faqCard(hit),
-          ...tipChips(TIP_IDS.filter((id) => id !== hit.tipId).slice(0, 3)),
-        ],
+        blocchi: [faqCard(hit), ...tipChips(TIP_IDS.filter((id) => id !== hit).slice(0, 3))],
       },
     };
   }
@@ -217,4 +209,4 @@ export function mossaDaUtente(
   };
 }
 
-export { FAQ, TIP_LABEL };
+export { FAQ, TIP_LABEL, TIP_IDS };

@@ -5,8 +5,8 @@ description: >
   code and specs: roles, contexts, agents (user-facing vs system), closed catalog
   of widgets/chips, det|gen classification, and spec-vs-code gaps. Produces a
   grounded surface map and 2–3 prioritized proposals — never free-form doctrine.
-  Use when: "surface map", "inventario widget/chips", "quali surface", "cosa manca
-  nel catalogo", "AIUxer start", designing generative UI from agents/capabilities,
+  Use when: "surface map", "widget/chip inventory", "which surfaces", "what's missing
+  in the catalog", "AIUxer start", designing generative UI from agents/capabilities,
   or before project-book / implementation. First skill in the AIUxer pipeline.
 ---
 

@@ -1,6 +1,7 @@
 # Hello Agentic — E2E playground for AI-Engineering / ai-native
 
 Toy product used to dogfood **AIUxer + AIEngineer** end-to-end.
+Conversational surface: **Hello Agent** (onboarding guide, KB-grounded, session memory).
 
 ## Human-owned inputs (do not invent in agents)
 
@@ -26,6 +27,24 @@ Toy product used to dogfood **AIUxer + AIEngineer** end-to-end.
 1. Ensure plugin `ai-native` is installed from marketplace `AI-Engineering`.
 2. Open this folder as the project root.
 3. Follow `README.md` (Hello World E2E).
+
+## Run the conversational demo (from Claude Code)
+
+Hello Agent’s chat brain is driven by `server.py`, which shells out to the **same CLI family that launched it**:
+
+```bash
+./run.sh                       # → http://127.0.0.1:8765
+# From Claude Code → claude -p · From Grok Build → grok -p
+```
+
+| Mode | How |
+|---|---|
+| **claude-cli** | `claude -p` (Claude Code login; preferred when Claude launches the server) |
+| **grok-cli** | `grok -p` (Grok Build login; preferred when `GROK_AGENT=1`) |
+| Anthropic / xAI API | `ANTHROPIC_API_KEY` / `XAI_API_KEY` |
+| Force | `HELLO_LLM_PROVIDER=claude-cli\|grok-cli\|anthropic\|xai` |
+
+Interactive sessions author the product; the browser → `server.py` → CLI `-p` for each chat turn.
 
 ## Trust
 

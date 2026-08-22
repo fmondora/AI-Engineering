@@ -3,18 +3,19 @@
 **Owner:** AIUxer · **Status:** ready
 
 ## Jobs
-1. Understand what Hello Agentic demonstrates
-2. Open grounded FAQ tips from a closed chip set
-3. See session memory notes accumulate
+1. Converse with **Hello Agent** (onboarding guide)
+2. Learn what this playground / ai-native twins are — grounded on `knowledge/`
+3. Use tip chips or free text; see session memory notes (name, language, opened tips)
 
 ## Outcome metrics
-- Tip → FAQ success without FallbackWidget
+- Chat turn → FAQ without FallbackWidget / unknown-type drop
+- Miss outside KB → honest refusal + tip chips (no invention)
 - Learner can name GenUI band used (Controlled/Declarative)
 
 ## Maturity target
 L1 measure (demo telemetry optional) · experience slice only
 
 ## Non-goals
-MCP, AG-UI bus, durable server memory, multi-agent fan-out
+MCP, AG-UI bus, durable server memory, multi-agent fan-out, real LLM (matcher is deterministic in v1)
 
 *— AIUxer v0.3.1*

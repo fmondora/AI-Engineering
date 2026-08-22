@@ -4,7 +4,7 @@
 
 | Role | Surface | Family | Entry |
 |---|---|---|---|
-| Learner | Hello Assistant | conversational-generative | `frontend/index.html` |
+| Learner | Hello Agent | conversational-generative | `frontend/index.html` |
 | — | Shell + memory panel | shell-not-catalog | `Shell.ts` / demo chrome |
 
 ## Trust

@@ -4,7 +4,7 @@
 
 ## Status
 - **State:** approved (E2E hello slice)
-- **Scope:** interaction + session memory panel for Hello Assistant
+- **Scope:** conversational Hello Agent (onboarding) + session memory panel
 - **Surface map:** `docs/ai-native/surface-maps/2026-08-22-surface-map.md`
 - **Approved by / date:** Francesco Mondora · 2026-08-22 (plugin E2E)
 

@@ -10,49 +10,51 @@
 ## Roles
 | Role | Surfaces | Notes |
 |---|---|---|
-| Learner / developer | Hello Assistant | Dogfoods the plugin E2E |
+| Learner / developer | Hello Agent chat | Dogfoods the plugin E2E |
 
 ## Surfaces
 | Surface | Family | Entry | Primary jobs |
 |---|---|---|---|
-| Hello Assistant | conversational-generative | `frontend/index.html` | Understand demo; open FAQ tips; see session memory |
-| Shell | hybrid-det | header + memory panel | Chrome only |
+| Hello Agent | conversational-generative | `frontend/index.html` | Chat onboarding; KB answers; tip chips; session memory |
+| Shell | hybrid-det | header + composer + memory panel | Chrome only (not catalog) |
 
 ## Runtime agents
 | Agent | user_facing | emits | owns_presentation | Source |
 |---|---|---|---|---|
-| Hello Assistant | true | catalog widgets/chips | true | `src/agents/assistant.ts` |
+| Hello Agent | true | catalog widgets/chips + shell prosa | true | `src/agents/assistant.ts` |
 
 ## Stack inventory
 ### L1 Knowledge
 | Source | Kind | Owner | Notes |
 |---|---|---|---|
-| `knowledge/faq.md` | static | human | active |
+| `knowledge/faq.md` | static | human | active — onboarding ground truth |
 | MCP | — | — | none in v1 |
 
 ### L2 Agents
 | Pipeline / agent | Role | Tools BE/FE | HITL |
 |---|---|---|---|
-| `pipelines/hello-assistant.md` | user-facing assistant | kb read / tip chips | none (no writes) |
+| `pipelines/hello-assistant.md` | Hello Agent (onboarding guide) | kb match / tip chips / session notes | none (no writes) |
 
 ### L3 Agentic UI
 - Wire today: **custom** (deterministic mossa; no AG-UI/A2UI yet)
-- Renderers: HTML string renderer + demo.js
-- Catalog path: `frontend/src/widgets/tipi.ts`
+- Renderers: `frontend/src/widgets/renderer.js` (typed twin `Renderer.tsx`)
+- Catalog path: `frontend/src/widgets/tipi.js` (+ `tipi.ts`)
+- Demo wires modules: `frontend/demo.js`
 
 ## Catalog diff
 | Type | Kind | Surfaces | Det/Gen | Status | Spec | Code | Notes |
 |---|---|---|---|---|---|---|---|
 | greeting | widget | hello | det+copy | none | 0001 | tipi+Renderer | |
 | faq-card | widget | hello | det | none | 0001 | tipi+Renderer | grounded FAQ |
-| tip-chip | chip | hello | det vocab | none | 0001 | tipi+Renderer | closed tip ids |
+| tip-chip | chip | hello | det vocab | none | 0001 | tipi+Renderer | 6 closed tip ids |
 
 ## Trust boundary hotspots
 - No real-world writes in v1
 - FAQ body from KB map, not free LLM prose in demo path
+- KB miss → honest refusal (no invention)
 
 ## User memory context (UX)
-- Session notes list in shell memory panel (client-only)
+- Session notes: name, language, opened tips (client-only)
 - No durable store; inspect = panel; reset = reload
 
 ## Gaps that matter (clustered)
@@ -61,17 +63,18 @@
 ### P1
 - No AG-UI bus (acceptable; Eng may propose later)
 ### P2
-- TSX Renderer not wired to bundler — demo.js is the runnable path
+- Typed `.ts`/`.tsx` are twins of runnable `.js` (no bundler) — keep in sync
+- Real LLM optional later behind same catalog
 
 ## Keystone
-Keep catalog tiny and enum ⊆ renderer; prove Book → Build watermark path.
+Keep catalog tiny and enum ⊆ renderer; prove conversational onboarding + Book → Build watermark path.
 
 ## Do NOT touch
 Human pipeline + `knowledge/` ownership.
 
 ## Proposals (2–3)
-### A — Ship hello slice as plugin E2E (recommended)
-- Jobs: open tips → FAQ; see memory notes
+### A — Ship hello conversational slice as plugin E2E (recommended)
+- Jobs: chat + tips → FAQ; session notes; KB honesty
 - Types: three catalog types
 - Wire: custom; Eng: no new tech required
 ### B — Add AG-UI later

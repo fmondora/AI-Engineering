@@ -5,8 +5,8 @@ description: >
   (AIUxer experience + AIEngineer feasibility) that implementation must follow.
   Chapters: intent, surfaces, catalog, agents, architecture, economics,
   reliability/evals, tensions, impl plan. Use after surface-map when the user
-  chose a direction, or when asked for "book", "libro di progetto", "design
-  book", "scrivi il book", "prima dell'implementazione". Hard-gate: no codegen
+  chose a direction, or when asked for "book", "project book", "design
+  book", "write the book", "before implementation". Hard-gate: no codegen
   until the Book slice is approved.
 ---
 

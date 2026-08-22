@@ -1,9 +1,9 @@
-# Knowledge base (static) — human-owned
+# Knowledge (human-owned)
 
-Plain markdown FAQ for the Hello Assistant. No MCP in v1.
+Static grounding for **Hello Agent**. Edit here; do not ask AIUxer to invent product truth.
 
-| File | Topic |
+| File | Use |
 |---|---|
-| `faq.md` | What is this demo / how GenUI bands work here |
+| `faq.md` | Onboarding Q&A the agent may cite |
 
-Agents may **read** these files. They must not rewrite the KB without a Book amendment.
+Invariant: agent answers that look like facts must map to a section here (or say “not in KB”).

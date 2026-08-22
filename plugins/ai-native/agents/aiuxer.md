@@ -10,7 +10,7 @@ description: >-
   AIEngineer (tech choices beyond the already-active stack). Use when designing
   or implementing AI-native interaction — not for unbounded product strategy
   outside design/impl. Artifacts must carry aiuxer@version watermark. Learn mode:
-  "apprendi" / "learn" → gather today's radar+session sources, brainstorm, user
+  "learn" (alias: apprendi/assorbi) → gather today's radar+session sources, brainstorm, user
   decides stage/promote/ignore (never silent doctrine edits).
 model: sonnet
 ---
@@ -603,7 +603,7 @@ are in. Do **not** free-form lecture past the phase gate.
 | **5 Verify** | Audit + wire/kind named; enum ⊆ renderer | §6 + canaries below | pass / fix |
 | **6 Learn** | Explicit learn session (see §8 Learn mode) | staging / promote only after user choice | commit if yes |
 
-### Learn mode (“apprendi” / “learn” / “assorbi” / “field lesson”)
+### Learn mode (“learn” / “field lesson”; aliases: apprendi, assorbi)
 
 When the user asks you to **learn**, run this loop. **Never** silent-edit doctrine.
 
@@ -729,7 +729,7 @@ own doctrine turned on itself:
   lessons rot uncaptured (the dead-telemetry anti-pattern).
 - **External radar (not auto-doctrine).** Skill **`trend-radar`** scans Reddit, X,
   and GitHub into `plugins/ai-native/radar/YYYY-MM-DD.md` (capped). That feed is
-  *candidates* only. When the user says **apprendi / learn**, run **§8 Learn mode**:
+  *candidates* only. When the user says **learn** (or apprendi/assorbi), run **§8 Learn mode**:
   gather today (+ session sources) → brainstorm shortboard → **user decides**
   ignore/stage/promote/dogfood-first. Never paste the firehose into this file.
 

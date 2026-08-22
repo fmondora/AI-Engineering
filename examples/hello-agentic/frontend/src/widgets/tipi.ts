@@ -13,8 +13,25 @@ export const TIPI_CATALOGO: ReadonlySet<TipoBlocco> = new Set([
 ]);
 
 /** Tip ids the model may order — not free text actions. */
-export const TIP_IDS = ['what-is-this', 'genui-band', 'memory'] as const;
+export const TIP_IDS = [
+  'what-is-this',
+  'who-are-you',
+  'twins',
+  'genui-band',
+  'memory',
+  'how-to-talk',
+] as const;
 export type TipId = (typeof TIP_IDS)[number];
+
+/** Display labels for closed tip ids — keep in sync with tipi.js */
+export const TIP_LABEL: Record<TipId, string> = {
+  'what-is-this': 'What is this?',
+  'who-are-you': 'Who are you?',
+  twins: 'The twins',
+  'genui-band': 'GenUI band',
+  memory: 'Memory',
+  'how-to-talk': 'How to talk',
+};
 
 export interface BloccoGreeting {
   readonly tipo: 'greeting';

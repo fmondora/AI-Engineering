@@ -4,7 +4,7 @@ Claude Code **marketplace** for an **AI-native design system**: twin agents plus
 
 | Piece | What it is |
 |---|---|
-| **`aiuxer`** | Design+impl of **interaction + user memory context** (after human pipelines/KB); GenUI stack (AG-UI/A2UI/MCP); **v0.3.1** — watermark + Learn mode (apprendi → brainstorm → you decide) |
+| **`aiuxer`** | Design+impl of **interaction + user memory context** (after human pipelines/KB); GenUI stack (AG-UI/A2UI/MCP); **v0.3.1** — watermark + Learn mode (learn → brainstorm → you decide) |
 | **`aiengineer`** | Tech choices **beyond active stack** + cost/reliability/evals; twin feasibility |
 | **`surface-map`** | Skill — grounded inventory of roles, surfaces, catalog **spec ↔ code**, proposals |
 | **`project-book`** | Skill — dual-lens **Book** the implementation must follow |
@@ -104,14 +104,14 @@ Then enable auto-update (see **Updating**).
 
 ## Hello World (E2E)
 
-Full walkthrough lives in **[`examples/hello-agentic/`](examples/hello-agentic/)**: a tiny product that exercises **human pipelines + KB → AIUxer interaction/memory → AIEngineer tech deltas → Book gates → runnable UI**.
+Full walkthrough lives in **[`examples/hello-agentic/`](examples/hello-agentic/)**: a tiny product where you **chat with Hello Agent** (onboarding guide) and exercise **human pipelines + KB → AIUxer interaction/memory → AIEngineer tech deltas → Book gates → runnable UI**.
 
 ### 60-second demo
 
 ```bash
-cd examples/hello-agentic/frontend
-python3 -m http.server 8765
-# open http://localhost:8765 — click tip chips; session notes appear
+cd examples/hello-agentic && ./run.sh
+# From Claude Code: uses `claude -p` (your login) — Hello Agent picks widgets
+# Or set ANTHROPIC_API_KEY / XAI_API_KEY
 ```
 
 ### E2E path (redo with the twins)
@@ -123,7 +123,7 @@ python3 -m http.server 8765
 | 2–3 Frame/Spec | **AIUxer + AIEngineer** | `/project-book` (incl. `02-STACK`) → **you approve** |
 | 4 Build | **AIUxer** (+ Eng if new tech) | Implement from Book §09 |
 | 5 Verify | **AIUxer** | Canaries: enum ⊆ renderer, kind+wire named, watermarks |
-| 6 Learn | **AIUxer** | *apprendi* → brainstorm → you decide stage/promote |
+| 6 Learn | **AIUxer** | *learn* → brainstorm → you decide stage/promote |
 
 Golden artifacts are checked in under `examples/hello-agentic/docs/ai-native/` so you can compare what the agents should produce. Details: [`examples/hello-agentic/README.md`](examples/hello-agentic/README.md).
 
@@ -135,7 +135,7 @@ Golden artifacts are checked in under `examples/hello-agentic/docs/ai-native/` s
 | Map the generative surface | `/surface-map` or ask AIUxer to run the surface map |
 | Design before code | After a direction: `/project-book` or "write the project book" |
 | Daily / on-demand trend scan | `/trend-radar` (Reddit + X + GitHub → `radar/`) |
-| Learn into AIUxer (decide with brainstorm) | Ask AIUxer: *apprendi* / *learn* — uses today's radar + session sources |
+| Learn into AIUxer (decide with brainstorm) | Ask AIUxer: *learn* — uses today's radar + session sources |
 | Experience review / pattern | Invoke **`aiuxer`** |
 | Architecture / cost / evals | Invoke **`aiengineer`** |
 | Full slice | Map → choose → Book (both lenses) → approve → implement §09 |

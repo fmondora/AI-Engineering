@@ -8,7 +8,10 @@
 | faq-card | widget | det | yes | yes |
 | tip-chip | chip | closed tip ids | yes | yes |
 
-**Invariant:** selectable ⊆ Renderer (`tipi.ts` / `Renderer.tsx` / `demo.js`).  
-**Out of catalog:** shell header, memory panel chrome.
+**Tip ids:** `what-is-this` · `who-are-you` · `twins` · `genui-band` · `memory` · `how-to-talk`
+
+**Invariant:** selectable ⊆ Renderer (`tipi.js` / `renderer.js`; typed twins `.ts`/`.tsx`).  
+**Impl:** `renderGreeting` · `renderFaqCard` · `renderTipChip` — demo imports, does not inline.  
+**Out of catalog:** shell header, chat chrome (user bubble, agent turn + prosa), composer, memory panel chrome.
 
 *— AIUxer v0.3.1*

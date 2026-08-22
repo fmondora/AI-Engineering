@@ -178,7 +178,7 @@ Prefer a separate commit from the radar file commit.
 | Field lessons ritual | promote after real work / approved Learn |
 | Literature (§7 agents) | stable *why* |
 
-If the user asks AIUxer to **apprendi/learn**, ensure today's radar exists (or
+If the user asks AIUxer to **learn** (or apprendi), ensure today's radar exists (or
 refresh), then hand control to AIUxer **Learn mode** — do not auto-stage.
 
 Radar without dogfood = fashion magazine.  
