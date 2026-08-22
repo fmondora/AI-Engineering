@@ -2,10 +2,10 @@
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "AI-Engineering",
   "version": "0.1.0",
-  "description": "Francesco Mondora's AI-native design system: the twin agents AIUxer (experience) and AIEngineer (engineering/economics), a single shared source across projects.",
+  "description": "Francesco Mondora's AI-native design system: the twin agents AIUxer (experience) and AIEngineer (engineering/economics), a single shared source across projects. Apache-2.0.",
   "owner": {
     "name": "Francesco Mondora",
-    "email": "f.mondora@teamsystem.com"
+    "email": "francesco@sacredspace.it"
   },
   "plugins": [
     {
