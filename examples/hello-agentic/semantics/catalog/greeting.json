@@ -1,0 +1,22 @@
+{
+  "tipo": "greeting",
+  "kind": "widget",
+  "job": "Open / welcome the user on the Hello Agent surface",
+  "detGen": "structure det; copy may be gen",
+  "llmSelectable": true,
+  "implDir": "frontend/src/widgets/greeting/",
+  "fields": {
+    "tipo": { "const": "greeting" },
+    "titolo": { "type": "string", "required": true, "maxLen": 120 },
+    "sottotitolo": { "type": "string", "required": false, "maxLen": 200 }
+  },
+  "composition": {
+    "when": ["open", "first-hello"],
+    "notes": "Prefer once per session open; not every turn."
+  },
+  "example": {
+    "tipo": "greeting",
+    "titolo": "Hello Agent",
+    "sottotitolo": "Onboarding guide · closed catalog · grounded on knowledge/"
+  }
+}

@@ -1,5 +1,8 @@
 # 0001 — Hello catalog (closed vocabulary)
 
+**Semantic SoT:** [`semantics/catalog/`](../semantics/catalog/) (AIUxer #34).  
+This spec summarizes; **edit JSON there**, then `tools/sync-semantics.py`.
+
 ## Types
 
 | Type | Kind | Det/Gen | Authority |
@@ -18,6 +21,18 @@
 - Chat transcript chrome (user bubble, agent turn wrapper, prosa)
 - Composer
 - Memory panel chrome
+
+## Layout
+
+One directory per catalog type (AIUxer #33):
+
+```text
+frontend/src/widgets/
+  registry.js
+  greeting/   tipi + render + README
+  faq-card/   …
+  tip-chip/   … (owns TIP_IDS)
+```
 
 ## Invariant
 

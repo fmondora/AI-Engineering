@@ -26,28 +26,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 FRONTEND = ROOT / "frontend"
 KB_PATH = ROOT / "knowledge" / "faq.md"
+SEMANTICS_DIR = ROOT / "semantics" / "catalog"
 
 PORT = int(os.environ.get("PORT", "8765"))
-
-TIP_IDS = frozenset(
-    {
-        "what-is-this",
-        "who-are-you",
-        "twins",
-        "genui-band",
-        "memory",
-        "how-to-talk",
-    }
-)
-TIP_LABEL = {
-    "what-is-this": "What is this?",
-    "who-are-you": "Who are you?",
-    "twins": "The twins",
-    "genui-band": "GenUI band",
-    "memory": "Memory",
-    "how-to-talk": "How to talk",
-}
-CATALOG = frozenset({"greeting", "faq-card", "tip-chip"})
 
 
 def load_kb() -> str:
@@ -56,11 +37,65 @@ def load_kb() -> str:
     return "(knowledge/faq.md missing)"
 
 
+def load_semantics() -> dict:
+    """Semantic catalog SoT — every consumer must agree with this."""
+    index = json.loads((SEMANTICS_DIR / "index.json").read_text(encoding="utf-8"))
+    types = {}
+    for tipo, fname in index["files"].items():
+        types[tipo] = json.loads((SEMANTICS_DIR / fname).read_text(encoding="utf-8"))
+    tip = types["tip-chip"]
+    return {
+        "index": index,
+        "types": types,
+        "catalog": frozenset(index["types"]),
+        "tip_ids": frozenset(tip["fields"]["tipId"]["enum"]),
+        "tip_labels": dict(tip["tipLabels"]),
+    }
+
+
+SEM = load_semantics()
+CATALOG = SEM["catalog"]
+TIP_IDS = SEM["tip_ids"]
+TIP_LABEL = SEM["tip_labels"]
+
+
+def catalog_as_schema_prompt() -> str:
+    lines = [
+        f"Semantic catalog id={SEM['index']['id']} version={SEM['index']['version']}",
+        "Emit ONLY instances of these types (enum ⊆ renderer). No HTML.",
+    ]
+    for tipo in SEM["index"]["types"]:
+        t = SEM["types"][tipo]
+        fields = t.get("fields", {})
+        parts = []
+        for name, spec in fields.items():
+            if name == "tipo":
+                continue
+            req = "required" if spec.get("required") else "optional"
+            if "enum" in spec:
+                parts.append(f"{name}: one of {spec['enum']} ({req})")
+            elif "const" in spec:
+                parts.append(f"{name}: {json.dumps(spec['const'])} ({req})")
+            else:
+                parts.append(f"{name}: {spec.get('type', 'any')} ({req})")
+        lines.append(
+            f"- {tipo} ({t.get('kind')}) — job: {t.get('job')}; fields: "
+            + "; ".join(parts)
+        )
+        if t.get("composition", {}).get("notes"):
+            lines.append(f"  composition: {t['composition']['notes']}")
+    lines.append(
+        "Out of catalog (shell — do NOT emit): "
+        + ", ".join(SEM["index"].get("outOfCatalog", []))
+    )
+    return "\n".join(lines)
+
+
 SYSTEM_PROMPT = f"""You are **Hello Agent**, the only user-facing onboarding guide for the Hello Agentic playground.
 
 ## Hard rules
 - Answer ONLY from the Knowledge base below. If unknown: say so honestly — never invent product facts.
-- Emit UI ONLY as the JSON schema below. No markdown widgets, no HTML, no unknown types.
+- Emit UI ONLY as catalog JSON instances from the semantic layer. No markdown widgets, no HTML, no unknown types.
 - Chat chrome (user bubbles, composer, memory sidebar) is shell — do NOT emit it as catalog types.
 - No side effects (no writes, email, checkout).
 - You decide which widgets to send each turn (composition from the closed catalog).
@@ -68,12 +103,8 @@ SYSTEM_PROMPT = f"""You are **Hello Agent**, the only user-facing onboarding gui
 - **prosa is REQUIRED** every turn (1–3 short sentences). Never leave prosa empty.
 - Do **not** spam the full tip list every turn.
 
-## Closed catalog (enum ⊆ renderer)
-1. greeting — {{ "tipo": "greeting", "titolo": string, "sottotitolo"?: string }} — only on open / first hello
-2. faq-card — {{ "tipo": "faq-card", "domanda": string, "risposta": string, "fonte": "knowledge/faq.md" }} — when answering a KB topic
-3. tip-chip — {{ "tipo": "tip-chip", "tipId": one of {sorted(TIP_IDS)}, "etichetta": string }}
-
-Allowed tipId values: {", ".join(sorted(TIP_IDS))}
+## Closed catalog (semantic SoT)
+{catalog_as_schema_prompt()}
 
 ## Response format (JSON only, no fences)
 {{
@@ -91,7 +122,6 @@ Allowed tipId values: {", ".join(sorted(TIP_IDS))}
 ## Knowledge base
 {load_kb()}
 """
-
 
 def claude_bin() -> str | None:
     return shutil.which(os.environ.get("CLAUDE_BIN", "claude"))
@@ -453,7 +483,8 @@ class Handler(SimpleHTTPRequestHandler):
         self.wfile.write(raw)
 
     def do_GET(self) -> None:  # noqa: N802
-        if self.path.split("?", 1)[0] == "/api/health":
+        path = self.path.split("?", 1)[0]
+        if path == "/api/health":
             provider = resolve_provider()
             self._json(
                 200,
@@ -463,11 +494,45 @@ class Handler(SimpleHTTPRequestHandler):
                     "provider": provider["name"] if provider else None,
                     "model": provider["model"] if provider else None,
                     "catalog": sorted(CATALOG),
+                    "semantics": SEM["index"]["id"],
+                    "semanticsVersion": SEM["index"]["version"],
                     "hint": None
                     if provider
                     else "Login `grok` or `claude`, or set ANTHROPIC_API_KEY / XAI_API_KEY",
                 },
             )
+            return
+        if path == "/api/semantics":
+            self._json(
+                200,
+                {
+                    "index": SEM["index"],
+                    "types": SEM["types"],
+                },
+            )
+            return
+        if path.startswith("/semantics/"):
+            # Serve semantic SoT files from repo root (not only frontend/)
+            rel = path[len("/semantics/") :]
+            target = (ROOT / "semantics" / rel).resolve()
+            if not str(target).startswith(str((ROOT / "semantics").resolve())):
+                self.send_error(403)
+                return
+            if not target.is_file():
+                self.send_error(404)
+                return
+            data = target.read_bytes()
+            ctype = (
+                "application/json"
+                if target.suffix == ".json"
+                else "text/markdown; charset=utf-8"
+            )
+            self.send_response(200)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(data)
             return
         super().do_GET()
 

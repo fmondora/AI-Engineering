@@ -1,0 +1,173 @@
+{
+  "id": "hello-agentic.catalog",
+  "version": "0.3.2",
+  "typesOrder": [
+    "greeting",
+    "faq-card",
+    "tip-chip"
+  ],
+  "outOfCatalog": [
+    "shell-header",
+    "user-bubble",
+    "agent-turn-prosa",
+    "composer",
+    "memory-panel"
+  ],
+  "turnEnvelope": {
+    "prosa": {
+      "type": "string",
+      "required": true
+    },
+    "blocchi": {
+      "type": "array",
+      "items": "catalog-instance"
+    },
+    "session_patch": {
+      "nome": {
+        "type": "string",
+        "optional": true
+      },
+      "lingua": {
+        "enum": [
+          "it",
+          "en"
+        ],
+        "optional": true
+      },
+      "opened_add": {
+        "type": "array",
+        "items": "tipId",
+        "optional": true
+      }
+    }
+  },
+  "types": {
+    "greeting": {
+      "tipo": "greeting",
+      "kind": "widget",
+      "job": "Open / welcome the user on the Hello Agent surface",
+      "detGen": "structure det; copy may be gen",
+      "llmSelectable": true,
+      "implDir": "frontend/src/widgets/greeting/",
+      "fields": {
+        "tipo": {
+          "const": "greeting"
+        },
+        "titolo": {
+          "type": "string",
+          "required": true,
+          "maxLen": 120
+        },
+        "sottotitolo": {
+          "type": "string",
+          "required": false,
+          "maxLen": 200
+        }
+      },
+      "composition": {
+        "when": [
+          "open",
+          "first-hello"
+        ],
+        "notes": "Prefer once per session open; not every turn."
+      },
+      "example": {
+        "tipo": "greeting",
+        "titolo": "Hello Agent",
+        "sottotitolo": "Onboarding guide · closed catalog · grounded on knowledge/"
+      }
+    },
+    "faq-card": {
+      "tipo": "faq-card",
+      "kind": "widget",
+      "job": "Show one grounded Q&A from knowledge/",
+      "detGen": "body det (KB); when to show may be gen",
+      "llmSelectable": true,
+      "implDir": "frontend/src/widgets/faq-card/",
+      "fields": {
+        "tipo": {
+          "const": "faq-card"
+        },
+        "domanda": {
+          "type": "string",
+          "required": true,
+          "maxLen": 200
+        },
+        "risposta": {
+          "type": "string",
+          "required": true,
+          "maxLen": 2000
+        },
+        "fonte": {
+          "type": "string",
+          "required": true,
+          "const": "knowledge/faq.md",
+          "notes": "Must cite KB path; do not invent facts in the renderer."
+        }
+      },
+      "composition": {
+        "when": [
+          "kb-question"
+        ],
+        "notes": "At most one faq-card per turn in v1."
+      },
+      "example": {
+        "tipo": "faq-card",
+        "domanda": "Who are the twins?",
+        "risposta": "AIUxer designs/implements interaction + user memory. AIEngineer owns architecture, cost, evals, and tech beyond the active stack.",
+        "fonte": "knowledge/faq.md"
+      }
+    },
+    "tip-chip": {
+      "tipo": "tip-chip",
+      "kind": "chip",
+      "job": "Steerable next-step suggestion from a closed tip id set",
+      "detGen": "vocab det; order/selection may be gen",
+      "llmSelectable": true,
+      "implDir": "frontend/src/widgets/tip-chip/",
+      "fields": {
+        "tipo": {
+          "const": "tip-chip"
+        },
+        "tipId": {
+          "type": "string",
+          "required": true,
+          "enum": [
+            "what-is-this",
+            "who-are-you",
+            "twins",
+            "genui-band",
+            "memory",
+            "how-to-talk"
+          ]
+        },
+        "etichetta": {
+          "type": "string",
+          "required": true,
+          "maxLen": 80
+        }
+      },
+      "tipLabels": {
+        "what-is-this": "What is this?",
+        "who-are-you": "Who are you?",
+        "twins": "The twins",
+        "genui-band": "GenUI band",
+        "memory": "Memory",
+        "how-to-talk": "How to talk"
+      },
+      "composition": {
+        "when": [
+          "open",
+          "follow-up"
+        ],
+        "maxPerTurnAfterOpen": 2,
+        "notes": "Do not spam full tip list every turn."
+      },
+      "example": {
+        "tipo": "tip-chip",
+        "tipId": "twins",
+        "etichetta": "The twins"
+      }
+    }
+  }
+}

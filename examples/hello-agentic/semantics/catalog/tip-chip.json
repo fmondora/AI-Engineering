@@ -1,0 +1,42 @@
+{
+  "tipo": "tip-chip",
+  "kind": "chip",
+  "job": "Steerable next-step suggestion from a closed tip id set",
+  "detGen": "vocab det; order/selection may be gen",
+  "llmSelectable": true,
+  "implDir": "frontend/src/widgets/tip-chip/",
+  "fields": {
+    "tipo": { "const": "tip-chip" },
+    "tipId": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "what-is-this",
+        "who-are-you",
+        "twins",
+        "genui-band",
+        "memory",
+        "how-to-talk"
+      ]
+    },
+    "etichetta": { "type": "string", "required": true, "maxLen": 80 }
+  },
+  "tipLabels": {
+    "what-is-this": "What is this?",
+    "who-are-you": "Who are you?",
+    "twins": "The twins",
+    "genui-band": "GenUI band",
+    "memory": "Memory",
+    "how-to-talk": "How to talk"
+  },
+  "composition": {
+    "when": ["open", "follow-up"],
+    "maxPerTurnAfterOpen": 2,
+    "notes": "Do not spam full tip list every turn."
+  },
+  "example": {
+    "tipo": "tip-chip",
+    "tipId": "twins",
+    "etichetta": "The twins"
+  }
+}

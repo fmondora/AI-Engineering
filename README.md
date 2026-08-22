@@ -8,7 +8,7 @@ Claude Code **marketplace** for an **AI-native design system**: twin agents plus
 
 | Piece | What it is |
 |---|---|
-| **`aiuxer`** | Design+impl of **interaction + user memory context** (after human pipelines/KB); GenUI stack (AG-UI/A2UI/MCP); **v0.3.1** — watermark + Learn mode (learn → brainstorm → you decide) |
+| **`aiuxer`** | Design+impl of **interaction + user memory context** (after human pipelines/KB); GenUI stack (AG-UI/A2UI/MCP); **v0.3.3** — **#33** one dir/type · **#34** semantic catalog SoT |
 | **`aiengineer`** | Tech choices **beyond active stack** + cost/reliability/evals; twin feasibility |
 | **`surface-map`** | Skill — grounded inventory of roles, surfaces, catalog **spec ↔ code**, proposals |
 | **`project-book`** | Skill — dual-lens **Book** the implementation must follow |
@@ -151,7 +151,8 @@ In the product's `CLAUDE.md` (or `AGENTS.md`), add a **Surface map paths** secti
 ```markdown
 ## Surface map paths
 - Specs: specs/
-- Catalog / types: frontend/src/widgets/tipi.ts
+- Semantic SoT: semantics/catalog/ (shared by LLM + widgets + Book)
+- Catalog impl: frontend/src/widgets/registry.js + widgets/<tipo>/
 - Renderer: frontend/src/widgets/Renderer.tsx
 - Runtime agents: src/agents/
 - Shell: frontend/src/shell/

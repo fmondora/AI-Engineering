@@ -5,9 +5,10 @@
 ## Slice H1 — Hello widgets + conversation (DONE)
 - **Goal:** closed catalog widgets (`greeting`, `faq-card`, `tip-chip`) rendered via shared renderer; chat with Hello Agent; session memory sidebar; KB miss honesty
 - **Authorized by:** 01–08
-- **Catalog / widgets:**
-  - `frontend/src/widgets/tipi.js` (+ `tipi.ts`)
-  - `frontend/src/widgets/renderer.js` (+ `Renderer.tsx`) — `renderGreeting` · `renderFaqCard` · `renderTipChip`
+- **Semantic SoT (#34):** `semantics/catalog/` + `tools/sync-semantics.py`
+- **Catalog / widgets (one dir per type — #33):**
+  - `frontend/src/widgets/registry.js`
+  - `frontend/src/widgets/{greeting,faq-card,tip-chip}/` — tipi + render + README
 - **Shell (not catalog):** `frontend/src/shell/shell.js` — chat main + Memory sidebar
 - **Agent:** `frontend/src/agent/hello-agent.js` (+ `src/agents/assistant.ts`)
 - **Entry:** `frontend/demo.js` (imports modules; canary enum ⊆ renderer)

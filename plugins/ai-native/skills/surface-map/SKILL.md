@@ -76,8 +76,10 @@ Search, in order:
 2. Conventions:
    - Specs: `specs/**/*.md`, especially widget/UI/agent orchestration specs
    - Runtime agents: `src/agents/`, `agents/`, `app/agents/`
-   - Catalog/registry: `**/widgets/tipi.ts`, `**/widgets/*types*`, `**/catalog*`, OpenUI/registry files
-   - Renderer: `**/Renderer.tsx`, `**/render*widget*`
+   - Semantic SoT (AIUxer #34): `**/semantics/catalog/index.json`, per-type `*.json`
+   - Catalog/registry: `**/widgets/registry.*`, `**/widgets/tipi.*`, `**/widgets/*types*`, `**/catalog*`, OpenUI/registry files
+   - Per-type dirs (AIUxer #33): `**/widgets/<tipo>/` with `render.*` + `tipi.*` + README
+   - Renderer: `**/Renderer.tsx`, `**/render*widget*`, or registry map tipo→render
    - Shell/chrome: `**/shell/`, sidebars, banners (may host widgets *outside* the generative catalog)
    - Sibling impl repo: `../<name>-impl` or paths declared in CLAUDE.md
 
@@ -247,7 +249,7 @@ Typical layout (adjust if the project declares otherwise):
 |---|---|---|
 | Principles | `principles.md` | same / mirrored |
 | Agents orchestration | `specs/0001-consiglio-agenti-esg.md` | `src/agents/`, `src/domain/router.ts` |
-| Widget/chip catalog | `specs/0002-widget-chips-dialogo.md` | `frontend/src/widgets/tipi.ts`, `Renderer.tsx`, `chips.tsx` |
+| Widget/chip catalog | `specs/0002-widget-chips-dialogo.md` | `frontend/src/widgets/<tipo>/`, `registry` / `tipi.ts`, `Renderer.tsx` |
 | Coach channel | `specs/0012-canale-coach-runtime.md` | `src/app/coach-channel.ts`, `src/agents/coach.ts` |
 | Shell / rail | `specs/0013-sidebar-coach.md` | `frontend/src/shell/` |
 | Surfaces | `0002` §4.3–4.x | `frontend/src/pages/superfici/` |

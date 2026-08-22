@@ -1,0 +1,29 @@
+{
+  "tipo": "faq-card",
+  "kind": "widget",
+  "job": "Show one grounded Q&A from knowledge/",
+  "detGen": "body det (KB); when to show may be gen",
+  "llmSelectable": true,
+  "implDir": "frontend/src/widgets/faq-card/",
+  "fields": {
+    "tipo": { "const": "faq-card" },
+    "domanda": { "type": "string", "required": true, "maxLen": 200 },
+    "risposta": { "type": "string", "required": true, "maxLen": 2000 },
+    "fonte": {
+      "type": "string",
+      "required": true,
+      "const": "knowledge/faq.md",
+      "notes": "Must cite KB path; do not invent facts in the renderer."
+    }
+  },
+  "composition": {
+    "when": ["kb-question"],
+    "notes": "At most one faq-card per turn in v1."
+  },
+  "example": {
+    "tipo": "faq-card",
+    "domanda": "Who are the twins?",
+    "risposta": "AIUxer designs/implements interaction + user memory. AIEngineer owns architecture, cost, evals, and tech beyond the active stack.",
+    "fonte": "knowledge/faq.md"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "./_meta.schema.json",
+  "id": "hello-agentic.catalog",
+  "version": "0.3.2",
+  "title": "Hello Agentic closed catalog",
+  "description": "Semantic SoT for LLM composition, validation, widgets, and Book 03-CATALOG.",
+  "band": "Controlled+Declarative",
+  "wire": "custom",
+  "types": ["greeting", "faq-card", "tip-chip"],
+  "outOfCatalog": [
+    "shell-header",
+    "user-bubble",
+    "agent-turn-prosa",
+    "composer",
+    "memory-panel"
+  ],
+  "turnEnvelope": {
+    "prosa": { "type": "string", "required": true },
+    "blocchi": { "type": "array", "items": "catalog-instance" },
+    "session_patch": {
+      "nome": { "type": "string", "optional": true },
+      "lingua": { "enum": ["it", "en"], "optional": true },
+      "opened_add": { "type": "array", "items": "tipId", "optional": true }
+    }
+  },
+  "files": {
+    "greeting": "greeting.json",
+    "faq-card": "faq-card.json",
+    "tip-chip": "tip-chip.json"
+  }
+}

@@ -118,14 +118,22 @@ pipelines/                    human — Hello Agent pipeline
 knowledge/                    human — static KB
 specs/                        catalog contract
 src/agents/assistant.ts       Hello Agent (typed)
+semantics/catalog/            SEMANTIC SoT (#34) — types as JSON
+tools/sync-semantics.py       → frontend/src/semantics/
 frontend/
-  demo.js                     entry (imports modules)
-  src/widgets/tipi.js         closed catalog
-  src/widgets/renderer.js     greeting · faq-card · tip-chip
+  demo.js                     entry
+  src/semantics/              generated vocab/bundle
+  src/widgets/registry.js     closed catalog registry
+  src/widgets/greeting/       one dir per type (#33)
+  src/widgets/faq-card/
+  src/widgets/tip-chip/
   src/shell/shell.js          chat + Memory sidebar (not catalog)
   src/agent/hello-agent.js    runtime agent
 docs/ai-native/               surface-map + Book (AIUxer/Eng)
 ```
+
+API: `GET /api/semantics` · files: `/semantics/catalog/*.json`
+
 
 ## What this proves
 
@@ -135,4 +143,4 @@ docs/ai-native/               surface-map + Book (AIUxer/Eng)
 | AIUxer owns interaction + user memory UX | chat, catalog, memory panel, Book 01–03/02-STACK |
 | Eng owns tech beyond active | 02-STACK deferred AG-UI; 05–07 |
 | Process gates | map → Book approve → Build |
-| Watermark | `aiuxer@0.3.1` on AIUxer artifacts |
+| Watermark | `aiuxer@0.3.2` on AIUxer artifacts |

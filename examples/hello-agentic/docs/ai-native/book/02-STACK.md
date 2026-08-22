@@ -14,7 +14,7 @@
 |---|---|---|---|
 | L1 Knowledge | static FAQ | MCP | human |
 | L2 Agents | Hello Agent (deterministic **or** xAI Grok) | — | human / AIUxer |
-| L3 Agentic UI | custom closed catalog | AG-UI/A2UI optional | AIUxer / Eng |
+| L3 Agentic UI | custom closed catalog + **semantic SoT** (`semantics/catalog/`) | AG-UI/A2UI optional | AIUxer / Eng |
 
 ## GenUI decision
 - **Band:** Controlled + Declarative

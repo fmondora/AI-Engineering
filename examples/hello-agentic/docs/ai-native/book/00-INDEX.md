@@ -5,6 +5,7 @@
 ## Status
 - **State:** approved (E2E hello slice)
 - **Scope:** conversational Hello Agent (onboarding) + session memory panel
+- **Semantic catalog:** `semantics/catalog/` (SoT for LLM + widgets + Book 03)
 - **Surface map:** `docs/ai-native/surface-maps/2026-08-22-surface-map.md`
 - **Approved by / date:** Francesco Mondora · 2026-08-22 (plugin E2E)
 

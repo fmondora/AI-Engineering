@@ -1,26 +1,37 @@
-// aiuxer@0.3.1 | 2026-08-22 | Build
+// aiuxer@0.3.2 | 2026-08-22 | Build
 /**
- * Exhaustive renderer for TIPI_CATALOGO.
- * Typed twin of renderer.js — greeting · faq-card · tip-chip.
+ * Typed facade — prefer per-directory renderers + registry for runtime.
+ * Keep exhaustive switch aligned with TIPI_CATALOGO (#1 / #33).
  */
 import type { Blocco, TipId } from './tipi';
 import { TIPI_CATALOGO } from './tipi';
+import { TIPO as GREETING } from './greeting/tipi';
+import { TIPO as FAQ } from './faq-card/tipi';
+import { TIPO as TIP } from './tip-chip/tipi';
 
 export interface Gestori {
   readonly onTip?: (tipId: TipId) => void;
 }
 
-export const RENDERER_TIPI = ['greeting', 'faq-card', 'tip-chip'] as const;
+export const RENDERER_TIPI = [GREETING, FAQ, TIP] as const;
+
+function escapeHtml(s: string): string {
+  return s
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
 
 export function renderGreeting(blocco: Extract<Blocco, { tipo: 'greeting' }>): string {
-  return `<section class="w greeting" data-tipo="greeting">
+  return `<section class="w greeting" data-tipo="${GREETING}">
   <h2>${escapeHtml(blocco.titolo)}</h2>
   ${blocco.sottotitolo ? `<p>${escapeHtml(blocco.sottotitolo)}</p>` : ''}
 </section>`;
 }
 
 export function renderFaqCard(blocco: Extract<Blocco, { tipo: 'faq-card' }>): string {
-  return `<article class="w faq-card" data-tipo="faq-card">
+  return `<article class="w faq-card" data-tipo="${FAQ}">
   <h3>${escapeHtml(blocco.domanda)}</h3>
   <p>${escapeHtml(blocco.risposta)}</p>
   <small data-fonte="${escapeHtml(blocco.fonte)}">fonte: ${escapeHtml(blocco.fonte)}</small>
@@ -28,23 +39,18 @@ export function renderFaqCard(blocco: Extract<Blocco, { tipo: 'faq-card' }>): st
 }
 
 export function renderTipChip(blocco: Extract<Blocco, { tipo: 'tip-chip' }>): string {
-  return `<button type="button" class="w tip-chip" data-tipo="tip-chip" data-tip="${blocco.tipId}">
+  return `<button type="button" class="w tip-chip" data-tipo="${TIP}" data-tip="${blocco.tipId}">
   ${escapeHtml(blocco.etichetta)}
 </button>`;
 }
 
-/** @deprecated prefer renderBlocco — kept for Book refs */
-export function RenderBlocco(blocco: Blocco, _gestori?: Gestori): string {
-  return renderBlocco(blocco);
-}
-
 export function renderBlocco(blocco: Blocco): string {
   switch (blocco.tipo) {
-    case 'greeting':
+    case GREETING:
       return renderGreeting(blocco);
-    case 'faq-card':
+    case FAQ:
       return renderFaqCard(blocco);
-    case 'tip-chip':
+    case TIP:
       return renderTipChip(blocco);
     default: {
       const _exhaustive: never = blocco;
@@ -59,6 +65,11 @@ export function renderSequenza(blocchi: readonly Blocco[]): string {
 }
 
 /** @deprecated */
+export function RenderBlocco(blocco: Blocco, _gestori?: Gestori): string {
+  return renderBlocco(blocco);
+}
+
+/** @deprecated */
 export function RenderSequenza(blocchi: readonly Blocco[], _gestori?: Gestori): string {
   return renderSequenza(blocchi);
 }
@@ -69,12 +80,4 @@ export function assertEnumSubsetRenderer(): void {
       throw new Error(`catalog tipo missing renderer: ${t}`);
     }
   }
-}
-
-function escapeHtml(s: string): string {
-  return s
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
 }

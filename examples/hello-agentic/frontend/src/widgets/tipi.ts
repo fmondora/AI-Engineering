@@ -1,58 +1,24 @@
-// aiuxer@0.3.1 | 2026-08-22 | Build
+// aiuxer@0.3.2 | 2026-08-22 | Build
 /**
- * Closed catalog — Hello Agentic (`specs/0001-hello-catalog.md`).
- * LLM may select only these types; Renderer must cover the same set.
+ * Catalog facade (typed) — union of per-directory widget shapes.
+ * Evolve under `greeting/`, `faq-card/`, `tip-chip/` — not only here.
  */
+import type { BloccoGreeting } from './greeting/tipi';
+import type { BloccoFaqCard } from './faq-card/tipi';
+import type { BloccoTipChip } from './tip-chip/tipi';
+import { TIPO as GREETING } from './greeting/tipi';
+import { TIPO as FAQ } from './faq-card/tipi';
+import { TIPO as TIP } from './tip-chip/tipi';
 
-export type TipoBlocco = 'greeting' | 'faq-card' | 'tip-chip';
+export type { BloccoGreeting } from './greeting/tipi';
+export type { BloccoFaqCard } from './faq-card/tipi';
+export type { BloccoTipChip, TipId } from './tip-chip/tipi';
+export { TIP_IDS, TIP_LABEL } from './tip-chip/tipi';
 
-export const TIPI_CATALOGO: ReadonlySet<TipoBlocco> = new Set([
-  'greeting',
-  'faq-card',
-  'tip-chip',
-]);
-
-/** Tip ids the model may order — not free text actions. */
-export const TIP_IDS = [
-  'what-is-this',
-  'who-are-you',
-  'twins',
-  'genui-band',
-  'memory',
-  'how-to-talk',
-] as const;
-export type TipId = (typeof TIP_IDS)[number];
-
-/** Display labels for closed tip ids — keep in sync with tipi.js */
-export const TIP_LABEL: Record<TipId, string> = {
-  'what-is-this': 'What is this?',
-  'who-are-you': 'Who are you?',
-  twins: 'The twins',
-  'genui-band': 'GenUI band',
-  memory: 'Memory',
-  'how-to-talk': 'How to talk',
-};
-
-export interface BloccoGreeting {
-  readonly tipo: 'greeting';
-  readonly titolo: string;
-  readonly sottotitolo?: string;
-}
-
-export interface BloccoFaqCard {
-  readonly tipo: 'faq-card';
-  readonly domanda: string;
-  readonly risposta: string;
-  readonly fonte: string; // path under knowledge/
-}
-
-export interface BloccoTipChip {
-  readonly tipo: 'tip-chip';
-  readonly tipId: TipId;
-  readonly etichetta: string;
-}
-
+export type TipoBlocco = typeof GREETING | typeof FAQ | typeof TIP;
 export type Blocco = BloccoGreeting | BloccoFaqCard | BloccoTipChip;
+
+export const TIPI_CATALOGO: ReadonlySet<TipoBlocco> = new Set([GREETING, FAQ, TIP]);
 
 export function isTipoCatalogo(x: string): x is TipoBlocco {
   return TIPI_CATALOGO.has(x as TipoBlocco);

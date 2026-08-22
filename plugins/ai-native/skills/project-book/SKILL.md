@@ -133,6 +133,8 @@ Use skeletons in `references/chapters/` if present; otherwise these headings are
 - Types in scope (atom/widget/chip/container)
 - Det | Gen | authority table (who decides what)
 - LLM-selectable set **⊆** Renderer (list both)
+- **Semantic SoT:** path to `semantics/catalog/` (or equiv) — Book points here (AIUxer #34)
+- **Impl layout:** one directory per catalog type + registry (AIUxer #33) when building
 - Status vs code if brownfield (`none | only-spec | …`)
 - Explicit **out of catalog** (shell)
 

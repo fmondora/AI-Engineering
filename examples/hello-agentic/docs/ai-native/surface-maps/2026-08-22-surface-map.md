@@ -37,8 +37,9 @@
 
 ### L3 Agentic UI
 - Wire today: **custom** (deterministic mossa; no AG-UI/A2UI yet)
-- Renderers: `frontend/src/widgets/renderer.js` (typed twin `Renderer.tsx`)
-- Catalog path: `frontend/src/widgets/tipi.js` (+ `tipi.ts`)
+- Semantic SoT: `semantics/catalog/` (AIUxer #34)
+- Renderers: per-type `widgets/<tipo>/render.js` via `registry.js` (AIUxer #33)
+- Catalog path: `registry.js` + `greeting|faq-card|tip-chip/` (implements semantics)
 - Demo wires modules: `frontend/demo.js`
 
 ## Catalog diff

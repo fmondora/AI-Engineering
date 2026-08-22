@@ -4,7 +4,11 @@
  * Prefers POST /api/chat (xAI Grok via server.py); falls back to deterministic matcher.
  */
 import { TIPI_CATALOGO, TIP_LABEL } from './src/widgets/tipi.js';
-import { RENDERER_TIPI, renderBlocco } from './src/widgets/renderer.js';
+import {
+  RENDERER_TIPI,
+  assertEnumSubsetRenderer,
+  renderBlocco,
+} from './src/widgets/registry.js';
 import { renderShell } from './src/shell/shell.js';
 import {
   FAQ,
@@ -13,14 +17,9 @@ import {
   mossaDaUtente,
 } from './src/agent/hello-agent.js';
 
-(function assertCatalogClosed() {
-  for (const t of TIPI_CATALOGO) {
-    if (!RENDERER_TIPI.includes(t)) throw new Error(`catalog tipo missing renderer: ${t}`);
-  }
-  for (const t of RENDERER_TIPI) {
-    if (!TIPI_CATALOGO.has(t)) throw new Error(`renderer tipo not in catalog: ${t}`);
-  }
-})();
+assertEnumSubsetRenderer();
+void TIPI_CATALOGO;
+void RENDERER_TIPI;
 
 /** @type {{ nome?: string, lingua?: string, opened: string[] }} */
 let sessione = { opened: [] };

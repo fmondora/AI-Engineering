@@ -14,10 +14,12 @@ Conversational surface: **Hello Agent** (onboarding guide, KB-grounded, session 
 ## Surface map paths
 
 - Specs: `specs/`
-- Catalog / types: `frontend/src/widgets/tipi.ts`
-- Renderer: `frontend/src/widgets/Renderer.tsx`
+- **Semantic catalog SoT:** `semantics/catalog/` (#34) — LLM, validate, Book, widgets all refer here
+- Sync: `python3.12 tools/sync-semantics.py` → `frontend/src/semantics/`
+- Catalog registry: `frontend/src/widgets/registry.js` (+ `tipi.ts` facade)
+- One directory per catalog type: `frontend/src/widgets/{greeting,faq-card,tip-chip}/` (#33)
 - Runtime agents: `src/agents/`
-- Shell: `frontend/src/shell/`
+- Shell (not catalog): `frontend/src/shell/`
 - Design root / impl root: this directory (single repo)
 - Book: `docs/ai-native/book/`
 - Surface maps: `docs/ai-native/surface-maps/`
