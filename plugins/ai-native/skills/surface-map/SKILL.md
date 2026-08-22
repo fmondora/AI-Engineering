@@ -47,13 +47,26 @@ You MUST track these as todos and complete them in order:
 1. **Resolve project layout** — design repo vs impl repo, paths from `CLAUDE.md` / `AGENTS.md` if present
 2. **Map roles & surfaces** — who talks to the system, which real surfaces exist
 3. **Map runtime agents** — user-facing vs system-facing (P-L)
-4. **Extract closed catalog (spec)** — widget/chip/atom/container types claimed in specs
-5. **Extract closed catalog (code)** — types in registry/union + renderer switch + chips
-6. **Diff spec ↔ code** — `none | only-spec | only-code | diverged | shell-not-catalog`
-7. **Classify det|gen** — who decides what (LLM vs domain fetch) per type when known
-8. **Jobs & contexts** — jobs-to-be-done per surface; entry points (routes/pages)
-9. **Write inventory artifact** — fixed path (below)
-10. **Propose 2–3 approaches** — only from real gaps; recommend one; wait for user
+4. **Stack inventory (L1/L2/L3)** — see § below; human-owned pipelines/KB vs interaction gaps
+5. **Extract closed catalog (spec)** — widget/chip/atom/container types claimed in specs
+6. **Extract closed catalog (code)** — types in registry/union + renderer switch + chips
+7. **Diff spec ↔ code** — `none | only-spec | only-code | diverged | shell-not-catalog`
+8. **Classify det|gen** — who decides what (LLM vs domain fetch) per type when known
+9. **Jobs & contexts** — jobs-to-be-done per surface; entry points (routes/pages)
+10. **Write inventory artifact** — fixed path (below)
+11. **Propose 2–3 approaches** — only from real gaps; recommend one; wait for user
+
+## Stack inventory (Knowledge → Agents → Agentic UI)
+
+Fill even if sparse (`n/a` / `human-owned` / `missing`):
+
+| Layer | Capture |
+|---|---|
+| **L1 Knowledge** | Static KB paths; MCP servers/tools; shared state/threads; memory/checkpoint tech already active |
+| **L2 Agents** | Pipeline topology (from human/docs); user-facing vs system; BE tools; FE/device tools; HITL points |
+| **L3 Agentic UI** | GenUI wire today: `custom \| AG-UI \| A2UI \| MCP-Apps \| hybrid \| none`; renderers (React/Flutter/…); catalog location |
+
+Mark what is **human-owned input** vs **AIUxer interaction gap** vs **needs AIEngineer tech delta**.
 
 ## 1. Resolve project layout
 
@@ -166,11 +179,26 @@ If `docs/ai-native/` does not exist, create it. Use today's date.
 ## Runtime agents
 | Agent | user_facing | emits | owns_presentation | Source |
 
+## Stack inventory
+### L1 Knowledge
+| Source | Kind (static/MCP/state/memory) | Owner (human/active) | Notes |
+
+### L2 Agents
+| Pipeline / agent | Role | Tools BE/FE | HITL |
+
+### L3 Agentic UI
+- Wire today: …
+- Renderers: …
+- Catalog path: …
+
 ## Catalog diff
 | Type | Kind (atom/widget/chip/container) | Surfaces | Det/Gen | Status | Spec | Code | Notes |
 
 ## Trust boundary hotspots
 - … (what must never be autonomous; what is hidden pre-decision; confirm-only actions)
+
+## User memory context (UX)
+- Session vs durable; inspect/reset affordances; gaps
 
 ## Gaps that matter (clustered)
 ### P0 — blocks a real job end-to-end
@@ -181,11 +209,11 @@ If `docs/ai-native/` does not exist, create it. Use today's date.
 One move that dissolves the most P0s if done first.
 
 ## Do NOT touch
-What already works and must not be redesigned in this pass.
+What already works and must not be redesigned in this pass (esp. human pipelines/KB).
 
 ## Proposals (2–3)
 ### A — … (recommended)
-- Scope, jobs closed, types involved, cost/risk sketch
+- Scope, jobs closed, types involved, cost/risk sketch; interaction vs Eng tech delta
 ### B — …
 ### C — … (optional)
 ```

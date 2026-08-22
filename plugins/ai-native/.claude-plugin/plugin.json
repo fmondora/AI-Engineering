@@ -1,6 +1,6 @@
 {
   "name": "ai-native",
-  "description": "AIUxer + AIEngineer twin agents and process skills: surface-map → project-book → implement; trend-radar (Reddit/X/GitHub) for dual-lens learning without auto-promote.",
+  "description": "AIUxer (design+impl interaction & user memory after human pipelines/KB) + AIEngineer (tech beyond active stack). Skills: surface-map, project-book (incl. 02-STACK), trend-radar.",
   "author": {
     "name": "Francesco Mondora",
     "email": "f.mondora@teamsystem.com"

@@ -47,8 +47,9 @@ docs/ai-native/book/
   00-INDEX.md
   01-INTENT.md              # AIUxer lead
   02-SURFACES.md            # AIUxer lead
+  02-STACK.md               # dual — human inputs + interaction frame + Eng tech deltas
   03-CATALOG.md             # AIUxer lead
-  04-AGENTS-RUNTIME.md      # dual
+  04-AGENTS-RUNTIME.md      # dual (experience mapping; topology often human-owned)
   05-ARCHITECTURE.md        # AIEngineer lead
   06-ECONOMICS.md           # AIEngineer lead
   07-RELIABILITY-EVALS.md   # AIEngineer lead
@@ -68,13 +69,14 @@ Also keep dated maps: `docs/ai-native/surface-maps/…` (inputs, not chapters).
 | 00 INDEX | whoever starts | both lenses reflected in status |
 | 01 INTENT | **AIUxer** | Eng: metrics measurable? |
 | 02 SURFACES | **AIUxer** | Eng: cost of generative surfaces |
+| **02 STACK** | **dual** | Human pipelines/KB recorded; AIUxer interaction+memory; Eng tech beyond active |
 | 03 CATALOG | **AIUxer** | Eng: registry / enum ⊆ renderer |
-| 04 AGENTS | dual | P-L respected |
+| 04 AGENTS | dual | P-L respected; do not silently rewrite human pipeline topology |
 | 05 ARCHITECTURE | **AIEngineer** | Ux: trust + composition path |
 | 06 ECONOMICS | **AIEngineer** | Ux: outcomes still hold |
 | 07 RELIABILITY-EVALS | **AIEngineer** | Ux: honest degradation UX |
 | 08 TENSIONS | dual | every open row has an owner |
-| 09 IMPL-READY | dual | no TBD in slices to build |
+| 09 IMPL-READY | dual | no TBD in slices to build; interaction slices owned by AIUxer path |
 
 When only one agent is invoked: write your chapters fully; leave explicit `Needs: AIEngineer` / `Needs: AIUxer` stubs — do not fake the other lens.
 
@@ -83,13 +85,14 @@ When only one agent is invoked: write your chapters fully; leave explicit `Needs
 1. **Prerequisites** — locate surface-map; if missing/stale for this scope, run `surface-map` first
 2. **Scope the Book slice** — which jobs/surfaces/types this edition covers (not the whole product forever)
 3. **Create/update `00-INDEX.md`** — status, scope, sources, approval state
-4. **Write experience chapters** (01–03, contribute to 04) as AIUxer
-5. **Write engineering chapters** (05–07, contribute to 04) as AIEngineer — same session if dual, or mark Needs
-6. **Write `08-TENSIONS.md`** — every UX richness vs cost/reliability tradeoff named; arbiter = cost-per-outcome + compliance veto if project has it
-7. **Write `09-IMPL-READY.md`** — ordered slices, each independently shippable, with files/interfaces/tests sketched
-8. **Self-review** (below)
-9. **User approval gate** — ask to review Book before implementation
-10. **Stop** — next is implementing from 09 (or superpowers writing-plans), not more design chat
+4. **Write experience chapters** (01–02 Surfaces, 03, contribute to 04) as AIUxer
+5. **Write `02-STACK.md`** — see contract below (human inputs + AIUxer frame + Eng deltas)
+6. **Write engineering chapters** (05–07, contribute to 04) as AIEngineer — same session if dual, or mark Needs
+7. **Write `08-TENSIONS.md`** — every UX richness vs cost/reliability tradeoff named; arbiter = cost-per-outcome + compliance veto if project has it
+8. **Write `09-IMPL-READY.md`** — ordered slices, each independently shippable, with files/interfaces/tests sketched
+9. **Self-review** (below)
+10. **User approval gate** — ask to review Book before implementation
+11. **Stop** — next is implementing from 09 (AIUxer leads interaction/memory slices); not more design chat
 
 ## Chapter contracts (minimum content)
 
@@ -113,6 +116,14 @@ Use skeletons in `references/chapters/` if present; otherwise these headings are
 - Trust boundary per surface (what is hidden, confirm-only)
 - Shell vs generative (#21)
 - Entry points (`path`)
+
+### 02-STACK
+- **Human-owned inputs:** agentic pipeline(s) summary + KB (static/MCP/data) — link paths; do not invent
+- **L1/L2/L3 map:** what is active today vs missing
+- **GenUI band** (Controlled / Declarative / Open-ended) + **wire** (`custom | AG-UI | A2UI | MCP-Apps | hybrid`)
+- **User memory context (AIUxer):** session vs durable; inspect/reset; shared state/threads UX
+- **Tech beyond active (AIEngineer):** proposed deltas only (new bus, runtime, storage, eval harness) with cost note
+- Status per row: `active | proposed | deferred | rejected`
 
 ### 03-CATALOG
 - Types in scope (atom/widget/chip/container)

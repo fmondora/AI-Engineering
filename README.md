@@ -4,8 +4,8 @@ Claude Code **marketplace** for an **AI-native design system**: twin agents plus
 
 | Piece | What it is |
 |---|---|
-| **`aiuxer`** | Experience lens — generative surfaces, closed catalog, grounding, audits |
-| **`aiengineer`** | AI architect — turns AIUxer intent into buildable architecture; cost, reliability, evals, current AI practice |
+| **`aiuxer`** | Design+impl of **interaction + user memory context** (after human pipelines/KB); GenUI stack Awareness (AG-UI/A2UI/MCP) |
+| **`aiengineer`** | Tech choices **beyond active stack** + cost/reliability/evals; twin feasibility |
 | **`surface-map`** | Skill — grounded inventory of roles, surfaces, catalog **spec ↔ code**, proposals |
 | **`project-book`** | Skill — dual-lens **Book** the implementation must follow |
 | **`trend-radar`** | Skill — Reddit + X + GitHub scan → capped daily radar (no auto-promote into agents) |
@@ -61,17 +61,17 @@ Agents are authored in English and **answer in the interlocutor's language**.
 ## Pipeline (how you actually work)
 
 ```text
-surface-map  →  user chooses a direction  →  project-book  →  implement from Book §09
-     │                    │                      │                      │
-  inventory            pick A/B/C           dual-lens Book          code / plans
-  + gaps +             (or map-only)        user-approved           only after approval
-  2–3 proposals
+Human: agentic pipeline(s) + knowledge base (static / MCP / …)
+        ↓
+Discover (surface-map + stack inventory) → Frame → Spec (Book, incl. 02-STACK)
+        ↓ approve
+Build (AIUxer: interaction + user memory; Eng: tech deltas) → Verify → Learn
 ```
 
 | Skill | Hard-gate | Artifact |
 |---|---|---|
 | **`surface-map`** | No new catalog / no codegen until map + proposals and a choice (or "map only") | `docs/ai-native/surface-maps/YYYY-MM-DD-surface-map.md` |
-| **`project-book`** | No implementation until the Book slice is **approved** | `docs/ai-native/book/` (`00-INDEX` … `09-IMPL-READY`) |
+| **`project-book`** | No implementation until the Book slice is **approved** | `docs/ai-native/book/` (+ **`02-STACK`**) |
 | **`trend-radar`** | Never auto-edit agent doctrine; ≤5 UX + ≤5 Eng/day; **auto** when twins invoked if day file missing | `plugins/ai-native/radar/YYYY-MM-DD.md` |
 
 **Book ownership (short):**
@@ -79,12 +79,13 @@ surface-map  →  user chooses a direction  →  project-book  →  implement fr
 | Chapters | Lead |
 |---|---|
 | 01 Intent, 02 Surfaces, 03 Catalog | AIUxer |
+| **02 STACK** | Dual — human pipelines/KB; AIUxer interaction/memory; Eng tech beyond active |
 | 05 Architecture, 06 Economics, 07 Reliability & evals | AIEngineer |
 | 04 Agents-runtime, 08 Tensions, 09 Impl-ready | Both |
 
-**How agents learn:** dogfood (field lessons) + literature + **`trend-radar`** (Reddit / X / GitHub) → stage → scarce promote → commit. Radar is candidates only. **AIUxer and AIEngineer auto-run the radar once per day** on first invocation if today's file is missing (then continue the job).
+**How agents learn:** dogfood + literature + **`trend-radar`** → stage → scarce promote → commit. Twins auto-run radar once per day if missing.
 
-Planned next: `generate-surface` (scaffold from Book catalog).
+See also: `plugins/ai-native/references/gap-aiuxer-vs-a2ui-agui.md`.
 
 ---
 
@@ -167,6 +168,7 @@ The `ai-native` plugin has **no pinned `version`** — Claude Code tracks by git
 
 ## Changelog
 
+- **AIUxer redesign (branch)** — design+impl mandate; Knowledge→Agents→UI stack; phases Discover→Learn; Book `02-STACK`; human owns pipelines/KB.
 - **`trend-radar` skill** — dual-lens scan (Reddit + X + GitHub) into capped `radar/YYYY-MM-DD.md`; stage/promote still human-gated.
 - **Field absorb (CSDDD + tantracp 2026-08-11)** — AIUxer **#25–#28** (autonomy ladder, impact preview, dual memory, evidence surface); AIEngineer dual-gate L4, unattended draft vs act, client timer ≠ durable capture; pattern crosswalk (Shape of AI / AI UX Playground).
 - **`project-book` skill** — per-project dual-lens Book before implementation; wired into both agents and surface-map handoff.
