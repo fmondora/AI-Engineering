@@ -1,4 +1,5 @@
 # 02 — Stack (Knowledge → Agents → Agentic UI)
+<!-- aiuxer@X.Y.Z | phase: Frame|Spec | date: YYYY-MM-DD -->
 **Owner:** dual · **Status:** draft | in-review | approved | deferred  
 **Edition:** YYYY-MM-DD
 

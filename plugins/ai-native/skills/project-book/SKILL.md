@@ -104,6 +104,10 @@ Use skeletons in `references/chapters/` if present; otherwise these headings are
 - Pointers to surface-map(s), existing product specs, design vs impl roots
 - Chapter list with owner + status
 - **Approval:** who approved, date (empty until user says so)
+- **Tooling watermark (AIUxer-led editions):**  
+  `<!-- aiuxer@X.Y.Z | phase: Spec|Build|… | date: YYYY-MM-DD -->`  
+  and footer `*— AIUxer vX.Y.Z*` — version from `agents/aiuxer.md` frontmatter.
+  Each chapter AIUxer authors/updates gets the same stamp in its header/Meta.
 
 ### 01-INTENT
 - Jobs-to-be-done (user language)

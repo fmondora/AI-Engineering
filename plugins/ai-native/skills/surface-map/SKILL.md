@@ -53,7 +53,7 @@ You MUST track these as todos and complete them in order:
 7. **Diff spec ↔ code** — `none | only-spec | only-code | diverged | shell-not-catalog`
 8. **Classify det|gen** — who decides what (LLM vs domain fetch) per type when known
 9. **Jobs & contexts** — jobs-to-be-done per surface; entry points (routes/pages)
-10. **Write inventory artifact** — fixed path (below)
+10. **Write inventory artifact** — fixed path (below); **stamp AIUxer version watermark** in Meta + footer (`agents/aiuxer.md` frontmatter `version`)
 11. **Propose 2–3 approaches** — only from real gaps; recommend one; wait for user
 
 ## Stack inventory (Knowledge → Agents → Agentic UI)
@@ -169,6 +169,8 @@ If `docs/ai-native/` does not exist, create it. Use today's date.
 - Design root: …
 - Impl root: …
 - Sources: list of files read (paths)
+- **Watermark:** `<!-- aiuxer@X.Y.Z | phase: Discover | date: YYYY-MM-DD -->` (read `version` from `agents/aiuxer.md` frontmatter)
+- Footer: `*— AIUxer vX.Y.Z*`
 
 ## Roles
 | Role | Surfaces | Notes |
