@@ -4,7 +4,7 @@ Claude Code **marketplace** for an **AI-native design system**: twin agents plus
 
 | Piece | What it is |
 |---|---|
-| **`aiuxer`** | Design+impl of **interaction + user memory context** (after human pipelines/KB); GenUI stack (AG-UI/A2UI/MCP); **v0.3.0** — artifacts watermarked `aiuxer@version` |
+| **`aiuxer`** | Design+impl of **interaction + user memory context** (after human pipelines/KB); GenUI stack (AG-UI/A2UI/MCP); **v0.3.1** — watermark + Learn mode (apprendi → brainstorm → you decide) |
 | **`aiengineer`** | Tech choices **beyond active stack** + cost/reliability/evals; twin feasibility |
 | **`surface-map`** | Skill — grounded inventory of roles, surfaces, catalog **spec ↔ code**, proposals |
 | **`project-book`** | Skill — dual-lens **Book** the implementation must follow |
@@ -107,6 +107,7 @@ Then enable auto-update (see **Updating**).
 | Map the generative surface | `/surface-map` or ask AIUxer to run the surface map |
 | Design before code | After a direction: `/project-book` or "write the project book" |
 | Daily / on-demand trend scan | `/trend-radar` (Reddit + X + GitHub → `radar/`) |
+| Learn into AIUxer (decide with brainstorm) | Ask AIUxer: *apprendi* / *learn* — uses today's radar + session sources |
 | Experience review / pattern | Invoke **`aiuxer`** |
 | Architecture / cost / evals | Invoke **`aiengineer`** |
 | Full slice | Map → choose → Book (both lenses) → approve → implement §09 |
