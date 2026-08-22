@@ -1,7 +1,7 @@
 # AI-Engineering
 
 <p align="center">
-  <img src="assets/brand/logo.jpg" alt="AI-Engineering logo" width="160" height="160" />
+  <img src="assets/brand/logo.png" alt="AI-Engineering logo" width="160" height="160" />
 </p>
 
 Claude Code **marketplace** for an **AI-native design system**: twin agents plus process skills that force inventory and design before code.
@@ -220,6 +220,6 @@ The `ai-native` plugin has **no pinned `version`** — Claude Code tracks by git
 
 **[Apache License 2.0](LICENSE)** — free to use, modify, and distribute, including in **commercial** products (with attribution; includes an express patent grant). See also [`NOTICE`](NOTICE).
 
-Brand mark: [`assets/brand/logo.jpg`](assets/brand/logo.jpg).
+Brand mark: [`assets/brand/logo.png`](assets/brand/logo.png) (transparent PNG).
 
 Maintained by Francesco Mondora (<francesco@sacredspace.it>). Issues and field lessons welcome via PRs on this repo.
